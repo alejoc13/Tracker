@@ -5,9 +5,10 @@ import pandas as pd
 
 
 def run():
-    df = load.uploadData()
+    # df = load.uploadData()
     df_plan = load.load_SPlan()
-    tr.by_registration(df,df_plan)
+    print(df_plan.columns)
+    tr.Submitted_Control(df_plan)
 
 
 

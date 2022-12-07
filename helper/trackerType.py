@@ -1,6 +1,7 @@
 import pandas as pd
 import datetime
 import helper.procesing as pr
+
 def by_cfn(df,sp):
     name = input('Ingrese el nombre del archivo (Una unica columna titulada CFN): ')
     FileName = f'Documents\{name}.xlsx'
@@ -8,8 +9,6 @@ def by_cfn(df,sp):
     lista = [cfn.strip() for cfn in ref['CFN']]
     track = df[df['CFN'].isin(lista)]
     pr.create_excel(track,sp)
-
-
 
 def by_SubOU(df,df_plan):
     ref = input('Ingrese las SubOU a trackear separadas por coma(,): ')
@@ -38,4 +37,12 @@ def by_registration(df,sp):
     lista = [cfn.strip() for cfn in ref['REGISTRATION']]
     track = df[df['REGISTRATION NUMBER'].isin(lista)]
     pr.create_excel(track,sp)
+
+def Submitted_Control(sp):
+    sp = sp[sp['Status'] == "SUBMITTED"]
+    sp = sp.dropna(subset=['Submission Date'])
+    sp['referencia'] = sp.apply(pr.reference,axis=1)
+    track = sp[sp['referencia']<datetime.datetime.today()]
+    pr.excel_ClusterReport(track)
+    pr.by_TG(track)
     

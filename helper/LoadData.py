@@ -157,9 +157,8 @@ def uploadData():
     return df
 
 def load_SPlan():
-    df_plan = pd.read_excel('Documents\Submission Plan - Full Report.xlsx',usecols=['Id','License Number','SubOU','Status','Submission Type','Expected Submission Date','Expected Approval Date','Approval Date','Country'],
-                        converters = {'License Number':str})
-    df_plan=df_plan.rename(columns={'License Number':'REGISTRATION NUMBER','Status':'Status Submission Plan'})
-    df_plan['REGISTRATION NUMBER'] = df_plan.apply(pr.trim_column,axis=1,column='REGISTRATION NUMBER')
+    df_plan = pd.read_excel('Documents\Submission Plan - Full Report.xlsx',usecols=['Id','RAS Name','Project/Product Name','Status','Submission Type','Submission Date','Approval Date','Therapy Group',
+                            'Expected Approval Date','Submission Date','Country','Cluster'])
+    df_plan = df_plan.rename(columns={'Project/Product Name':'PRODUCT NAME'})
     return df_plan
 

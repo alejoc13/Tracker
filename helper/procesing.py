@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 def cut_values(row,column = 'MANUFACTURING ADDRESS'):
     var = str(row[column])
     if '\n' in var:
@@ -58,7 +59,18 @@ def excel_by_Cluster(df):
         df_cela.to_excel(writer1, sheet_name  = 'CELA',index = False)
         df_brasil.to_excel(writer1, sheet_name  = 'Brazil',index = False)
 
-
+def excel_ClusterReport(df):
+    file = input('Nombre del archico a guardar: ')
+    path = f'trackResults\{file}.xlsx'
+    df_nola = df[df['Cluster'] == 'NOLA']
+    df_sola = df[df['Cluster']=='SOLA']
+    df_cela = df[df['Cluster']=='CELA']
+    df_brasil = df[df['Cluster'] == 'BRAZIL']
+    with pd.ExcelWriter(path) as writer1:
+        df_nola.to_excel(writer1, sheet_name = 'NOLA', index = False)
+        df_sola.to_excel(writer1, sheet_name = 'SOLA', index = False)
+        df_cela.to_excel(writer1, sheet_name  = 'CELA',index = False)
+        df_brasil.to_excel(writer1, sheet_name  = 'Brazil',index = False)
 
 def prepareDateTracker(df):
     df1 = df.copy()
@@ -66,3 +78,22 @@ def prepareDateTracker(df):
     df1 = df1[~df1['Country'].isin(['DO','HN'])]
     df1['EXPIRATION DATE'] = pd.to_datetime(df1['EXPIRATION DATE'])
     return df1
+
+def reference(row,col='Expected Approval Date'):
+    a = row[col]
+    delta = datetime.timedelta(90)
+    ref = a + delta
+    return ref
+
+def by_TG(df):
+    file = input('Nombre del archico a guardar: ')
+    path = f'trackResults\{file}.xlsx'
+    df_at = df[df['Therapy Group']=='AT']
+    df_cat = df[df['Therapy Group']=='CathLab']
+    df_oricu = df[df['Therapy Group']=='OR&ICU']
+    
+    with pd.ExcelWriter(path) as writer1:
+        df_at.to_excel(writer1, sheet_name = 'AT', index = False)
+        df_oricu.to_excel(writer1, sheet_name  = 'OR&ICU',index = False)
+        df_cat.to_excel(writer1,sheet_name='CathLab',index = False)
+    pass
