@@ -7,8 +7,8 @@ import pandas as pd
 def run():
     # df = load.uploadData()
     df_plan = load.load_SPlan()
-    print(df_plan.columns)
-    tr.Submitted_Control(df_plan)
+    df_plan = pr.sp_trim(df_plan)
+    tr.Plannig_review(df_plan)
 
 
 

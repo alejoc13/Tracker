@@ -85,7 +85,7 @@ def reference(row,col='Expected Approval Date'):
     ref = a + delta
     return ref
 
-def by_TG(df):
+def excel_byTG(df):
     file = input('Nombre del archico a guardar: ')
     path = f'trackResults\{file}.xlsx'
     df_at = df[df['Therapy Group']=='AT']
@@ -97,3 +97,9 @@ def by_TG(df):
         df_oricu.to_excel(writer1, sheet_name  = 'OR&ICU',index = False)
         df_cat.to_excel(writer1,sheet_name='CathLab',index = False)
     pass
+
+def sp_trim(df):
+    for name in df.columns:
+        if name not in ['Submission Date','Approval Date','Expected Approval Date']:
+            df[name] = df.apply(trim_column,axis = 1,column = name)
+    return df

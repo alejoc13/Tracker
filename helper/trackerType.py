@@ -44,5 +44,8 @@ def Submitted_Control(sp):
     sp['referencia'] = sp.apply(pr.reference,axis=1)
     track = sp[sp['referencia']<datetime.datetime.today()]
     pr.excel_ClusterReport(track)
-    pr.by_TG(track)
-    
+    pr.excel_byTG(track)
+
+def Plannig_review(sp):
+    df_out = sp[((sp['Status'].isin(['SUBMITTED'])) & (sp['Submission Date'].isna())) | ((sp['Approval Date'].isna()) & (sp['Status'] == 'APPROVED'))] 
+    pr.excel_byTG(df_out)
