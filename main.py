@@ -11,6 +11,8 @@ if __name__ == "__main__":
             4. Tracker de planning review(fechas omitidas de submitted y Approved)
             5. Tracker de procesos Resagados(mas tiempo del esperado en Submitted)
             6. Tracker Missed Voucher
+            7. Tracker por lapsos de tiempo(se da una fecha de inicio y de finalización)
+            8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda)
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -38,6 +40,12 @@ if __name__ == "__main__":
             menu = False
         elif option == 6:
             op.option_voucher()
+            menu = False
+        elif option == 7:
+            op.option_Timelapse()
+            menu = False
+        elif option == 8:
+            op.option_expired()
             menu = False
         else:
             print('Opción incorrecta')

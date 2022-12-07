@@ -39,4 +39,12 @@ def option_voucher():
     vou =  pr.sp_trim(vou)
     tr.vouchers(vou,df_plan)
 
+def option_Timelapse():
+    df = load.uploadData()
+    tr.TimeLapse(df)
+
+def option_expired():
+    df = load.uploadData()
+    tr.expirated(df)
+
 
