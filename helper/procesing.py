@@ -110,6 +110,6 @@ def excel_Vouchers(mx,ar):
 
 def sp_trim(df):
     for name in df.columns:
-        if name not in ['Submission Date','Approval Date','Expected Approval Date','Created','PC3 Due Date','DM Complete date','PC3 Complete Date']:
+        if name not in ['Submission Date','Approval Date','Expected Approval Date','Created','PC3 Due Date','DM Complete date','PC3 Complete Date','License Expiration Date']:
             df[name] = df.apply(trim_column,axis = 1,column = name)
     return df
