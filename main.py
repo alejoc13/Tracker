@@ -1,14 +1,11 @@
-import helper.LoadData as load
-import helper.procesing as pr
-import helper.trackerType as tr
 import helper.callOption as op
-import pandas as pd
 
 if __name__ == "__main__":
     menu = True
     while menu != False:
         try:
-            option = input('''1. Tracker por CFN
+            option = input('''
+            1. Tracker por CFN
             2. Tracker por SubOU
             3. Tracker por Número de Registro
             4. Tracker de planning review(fechas omitidas de submitted y Approved)
@@ -19,6 +16,7 @@ if __name__ == "__main__":
         except:
             if option == '':
                 menu = False
+                break
             else:
                 print('Opción invalida')
                 print('#-------------------------------')

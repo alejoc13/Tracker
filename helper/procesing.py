@@ -44,6 +44,7 @@ def create_excel(df,splan):
         repo.to_excel(writer1, sheet_name = 'Comparado con Submission Plan', index = False)
 
 def excel_by_Cluster(df):
+    print('Este documento esta seccionado por Cluster')
     file = input('Nombre del archico a guardar: ')
     path = f'trackResults\{file}.xlsx'
     nola = ['CR','MX','GT','SV','HN','CU','NI','PA']
@@ -60,6 +61,7 @@ def excel_by_Cluster(df):
         df_brasil.to_excel(writer1, sheet_name  = 'Brazil',index = False)
 
 def excel_ClusterReport(df):
+    print('Este documento esta seccionado por Cluster')
     file = input('Nombre del archico a guardar: ')
     path = f'trackResults\{file}.xlsx'
     df_nola = df[df['Cluster'] == 'NOLA']
@@ -86,6 +88,7 @@ def reference(row,col='Expected Approval Date'):
     return ref
 
 def excel_byTG(df):
+    print('Este documento esta seccionado por Therapy Group')
     file = input('Nombre del archico a guardar: ')
     path = f'trackResults\{file}.xlsx'
     df_at = df[df['Therapy Group']=='AT']
