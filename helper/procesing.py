@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+
 def cut_values(row,column = 'MANUFACTURING ADDRESS'):
     var = str(row[column])
     if '\n' in var:

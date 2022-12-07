@@ -148,6 +148,7 @@ def uploadData():
     df = df.sort_values(by = ['Country'])
 
     df = df.dropna(subset='REGISTRATION NUMBER')
+    print('Bases de datos Cargadas')
 
     return df
 
@@ -156,11 +157,13 @@ def load_SPlan():
     df_plan = pd.read_excel('Documents\Submission Plan - Full Report.xlsx',usecols=['Id','RAS Name','Project/Product Name','Status','Submission Type','Submission Date','Approval Date','Therapy Group',
                             'Expected Approval Date','Submission Date','Country','Cluster','License Number'])
     df_plan = df_plan.rename(columns={'Project/Product Name':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
+    print('Submission Plan cargado')
     return df_plan
 
 def load_vouchers():
-    print('Cargando los datos de Vouchers')
+    print('Cargando los datos de Vouchers...')
     df = pd.read_excel('Documents\Vouchers Report.xlsx',converters = {'Primary':str})
     df = df.rename(columns={'Project/Product Name':'PRODUCT NAME','Primary':'REGISTRATION NUMBER'})
+    print('Vouchers Cargados')
     return df
 
