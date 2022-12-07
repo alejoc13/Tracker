@@ -10,6 +10,7 @@ if __name__ == "__main__":
             3. Tracker por Número de Registro
             4. Tracker de planning review(fechas omitidas de submitted y Approved)
             5. Tracker de procesos Resagados(mas tiempo del esperado en Submitted)
+            6. Tracker Missed Voucher
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -34,6 +35,9 @@ if __name__ == "__main__":
             menu = False
         elif option == 5:
             op.option_submitted()
+            menu = False
+        elif option == 6:
+            op.option_voucher()
             menu = False
         else:
             print('Opción incorrecta')

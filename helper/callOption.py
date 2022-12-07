@@ -29,4 +29,13 @@ def option_Planning():
 
 def option_submitted():
     df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
     tr.Submitted_Control(df_plan)
+def option_voucher():
+    df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
+    vou = load.load_vouchers()
+    vou =  pr.sp_trim(vou)
+    tr.vouchers(vou,df_plan)
+
+

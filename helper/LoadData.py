@@ -158,3 +158,9 @@ def load_SPlan():
     df_plan = df_plan.rename(columns={'Project/Product Name':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
     return df_plan
 
+def load_vouchers():
+    print('Cargando los datos de Vouchers')
+    df = pd.read_excel('Documents\Vouchers Report.xlsx',converters = {'Primary':str})
+    df = df.rename(columns={'Project/Product Name':'PRODUCT NAME','Primary':'REGISTRATION NUMBER'})
+    return df
+

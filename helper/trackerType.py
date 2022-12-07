@@ -49,3 +49,14 @@ def Submitted_Control(sp):
 def Plannig_review(sp):
     df_out = sp[((sp['Status'].isin(['SUBMITTED'])) & (sp['Submission Date'].isna())) | ((sp['Approval Date'].isna()) & (sp['Status'] == 'APPROVED'))] 
     pr.excel_byTG(df_out)
+
+def vouchers(vou,df_plan):
+    dfmx = df_plan[(df_plan['Status'] == 'SUBMITTED') & (df_plan['Country'] == 'MX - Mexico')]
+    dfar = df_plan[(df_plan['Status'] == 'SUBMITTED') & (df_plan['Country'] == 'AR - Argentina')]
+    voumx = vou[vou['Country']=='MX - Mexico']
+    vouar = vou[vou['Country']=='AR - Argentina']
+    refmx = set(voumx['REGISTRATION NUMBER'])
+    refar = set(vouar['REGISTRATION NUMBER'])
+    mx_missed = dfmx[~dfmx['REGISTRATION NUMBER'].isin(refmx)]
+    ar_missed = dfar[~dfar['REGISTRATION NUMBER'].isin(refar)]
+    pr.excel_Vouchers(mx_missed,ar_missed)

@@ -99,10 +99,16 @@ def excel_byTG(df):
         df_at.to_excel(writer1, sheet_name = 'AT', index = False)
         df_oricu.to_excel(writer1, sheet_name  = 'OR&ICU',index = False)
         df_cat.to_excel(writer1,sheet_name='CathLab',index = False)
-    pass
+
+def excel_Vouchers(mx,ar):
+    file = input('Nombre del archico a guardar: ')
+    path = f'trackResults\{file}.xlsx' 
+    with pd.ExcelWriter(path) as writer1:
+        mx.to_excel(writer1, sheet_name = 'Mexico', index = False)
+        ar.to_excel(writer1, sheet_name  = 'Argentina',index = False)
 
 def sp_trim(df):
     for name in df.columns:
-        if name not in ['Submission Date','Approval Date','Expected Approval Date']:
+        if name not in ['Submission Date','Approval Date','Expected Approval Date','Created','PC3 Due Date','DM Complete date','PC3 Complete Date']:
             df[name] = df.apply(trim_column,axis = 1,column = name)
     return df
