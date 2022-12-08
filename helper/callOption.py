@@ -52,5 +52,11 @@ def cancel_criticalOP():
     criticals =load.load_criticals()
     tr.cancel_criticals(criticals,df)
 
+def CFN_WithdrawalOP():
+    df = load.uploadData()
+    criticals =load.load_criticals()
+    tr.approved_criticals(criticals,df)
+
+
 
 

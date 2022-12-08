@@ -14,6 +14,7 @@ if __name__ == "__main__":
             7. Tracker por lapsos de tiempo(se da una fecha de inicio y de finalización)
             8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda)
             9. Missed Critical communications(Cancell Renewal)
+            10. Missed Critical communications (approved CFN Withdrawal)
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -50,6 +51,9 @@ if __name__ == "__main__":
             menu = False
         elif option == 9:
             op.cancel_criticalOP()
+            menu = False
+        elif option == 10:
+            op.CFN_WithdrawalOP()
             menu = False
         else:
             print('Opción incorrecta')

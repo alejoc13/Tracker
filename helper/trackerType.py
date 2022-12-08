@@ -67,5 +67,11 @@ def cancel_criticals(criticals,df):
     listado = set(listado)
     df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'Vigente, no se renovará')]
     pr.excel_by_Cluster(df1)
-    pass
+
+def approved_criticals(criticals,df):
+    criticals = criticals[(criticals['Status'] == 'APPROVED') & (criticals['Submission Type'] == 'CFN Withdrawal')]
+    listado = [var.strip() for var in criticals['REGISTRATION NUMBER']]
+    listado = set(listado)
+    df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'Vigente, no se renovará')]
+    pr.excel_by_Cluster(df1)
 

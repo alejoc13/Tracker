@@ -141,7 +141,6 @@ def newCol(df):
     df2 = df2[df2['Submission Type'].isin(['CFN Withdrawal','Renewal'])]
     return df2
 
-
 def expandRows(df):
     df['Submission Type'] = df.apply(chageSeparator,axis=1,col = 'Submission Type')
     df['ST cut'] = df.apply(cut_values,axis =1,column='Submission Type',sep='/')
