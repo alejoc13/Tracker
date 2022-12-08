@@ -138,6 +138,7 @@ def newCol(df):
             temporal['Submission Type'] =df['Submission Type'][i]
             df2 = pd.concat([df2,temporal],ignore_index = True)
     df2 = df2.drop('ST cut',axis=1)
+    df2 = df2[df2['Submission Type'].isin(['CFN Withdrawal','Renewal'])]
     return df2
 
 
