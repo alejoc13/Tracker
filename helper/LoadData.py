@@ -169,8 +169,10 @@ def load_vouchers():
 
 def load_criticals():
     print('Cargando los datos de Expected Critical communications...')
-    df = pd.read_excel('Documents\Expected Critical Communications Report.xlsx',date_parser=['License Expiration Date'])
+    df = pd.read_excel('Documents\Expected Critical Communications Report.xlsx',date_parser=['License Expiration Date'],converters={'License Number':str})
     df = df.rename(columns={'PRODUCT NAME':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
+    print('Critical communications cargados')
+    return df
     
 
 

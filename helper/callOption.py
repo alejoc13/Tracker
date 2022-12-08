@@ -47,4 +47,10 @@ def option_expired():
     df = load.uploadData()
     tr.expirated(df)
 
+def cancel_criticalOP():
+    df = load.uploadData()
+    criticals =load.load_criticals()
+    tr.cancel_criticals(criticals,df)
+
+
 

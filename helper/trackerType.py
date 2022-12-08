@@ -60,3 +60,12 @@ def vouchers(vou,df_plan):
     mx_missed = dfmx[~dfmx['REGISTRATION NUMBER'].isin(refmx)]
     ar_missed = dfar[~dfar['REGISTRATION NUMBER'].isin(refar)]
     pr.excel_Vouchers(mx_missed,ar_missed)
+
+def cancel_criticals(criticals,df):
+    criticals = criticals[(criticals['Status'] == 'CANCELLED') & (criticals['Submission Type'] == 'Renewal')]
+    listado = [var.strip() for var in criticals['REGISTRATION NUMBER']]
+    listado = set(listado)
+    df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'Vigente, no se renovará')]
+    pr.excel_by_Cluster(df1)
+    pass
+
