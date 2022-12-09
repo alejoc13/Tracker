@@ -17,18 +17,18 @@ def by_SubOU(df,df_plan):
     track = df[df['OU'].isin(lista)]
     pr.create_excel(track,df_plan)
 
-def expirated(df):
+def expirated(df,sp):
     ref = datetime.datetime.today()
     df1 = pr.prepareDateTracker(df)
     track = df1[df1['EXPIRATION DATE']<ref]
-    pr.excel_by_Cluster(track)
+    pr.excel_by_Cluster(track,sp)
 
-def TimeLapse(df):
+def TimeLapse(df,sp):
     init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
     df1 = pr.prepareDateTracker(df)
     track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
-    pr.excel_by_Cluster(track)
+    pr.excel_by_Cluster(track,sp)
 
 def by_registration(df,sp):
     name = input('Ingrese el nombre del archivo (Una unica columna titulada REGISTRATION): ')

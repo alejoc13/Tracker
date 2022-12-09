@@ -44,7 +44,7 @@ def create_excel(df,splan):
         df_registration.to_excel(writer1, sheet_name = 'Registros', index = False)
         repo.to_excel(writer1, sheet_name = 'Comparado con Submission Plan', index = False)
 
-def excel_by_Cluster(df):
+def excel_by_Cluster(df,splan):
     print('Este documento esta seccionado por Cluster')
     file = input('Nombre del archivo a guardar: ')
     path = f'trackResults\{file}.xlsx'
@@ -55,11 +55,17 @@ def excel_by_Cluster(df):
     df_sola = df[df['Country'].isin(sola)]
     df_cela = df[df['Country'].isin(cela)]
     df_brasil = df[df['Country'] == 'BR']
+
+    df_registration = df.drop(['CFN','CFN DESCRIPTION','Country'],axis = 1)
+    df_registration = df_registration.rename(columns={'STATUS':'Status base de datos'})
+    df_registration = df_registration.drop_duplicates(subset=['REGISTRATION NUMBER'])
+    repo = pd.merge(splan,df_registration, how='inner',on='REGISTRATION NUMBER')
     with pd.ExcelWriter(path) as writer1:
         df_nola.to_excel(writer1, sheet_name = 'NOLA', index = False)
         df_sola.to_excel(writer1, sheet_name = 'SOLA', index = False)
         df_cela.to_excel(writer1, sheet_name  = 'CELA',index = False)
         df_brasil.to_excel(writer1, sheet_name  = 'Brazil',index = False)
+        repo.to_excel(writer1, sheet_name = 'Comparado con Submission Plan', index = False)
 
 def excel_ClusterReport(df):
     print('Este documento esta seccionado por Cluster')

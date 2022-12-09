@@ -41,11 +41,13 @@ def option_voucher():
 
 def option_Timelapse():
     df = load.uploadData()
-    tr.TimeLapse(df)
+    sp = load.load_SPlan()
+    tr.TimeLapse(df,sp)
 
 def option_expired():
     df = load.uploadData()
-    tr.expirated(df)
+    sp = load.load_SPlan()
+    tr.expirated(df,sp)
 
 def cancel_criticalOP():
     df = load.uploadData()
