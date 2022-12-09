@@ -75,3 +75,13 @@ def approved_criticals(criticals,df):
     df1 = df[(df['REGISTRATION NUMBER'].isin(listado))]
     pr.create_excel(df1,criticals)
 
+def by_cfn_sufix(df,sp):
+    sufix_df = pd.DataFrame(columns=df.columns)
+    name = input('Ingrese el nombre del archivo (Una unica columna titulada CFN): ')
+    FileName = f'Documents\{name}.xlsx'
+    ref = pd.read_excel(FileName,converters={'CFN':str})
+    lista = [cfn.strip() for cfn in ref['CFN']]
+    for cfn in lista:
+        temp = pr.sufix_search(df,cfn)
+        sufix_df = pd.concat([sufix_df,temp])
+    pr.create_excel(sufix_df,sp)

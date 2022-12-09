@@ -53,12 +53,14 @@ def cancel_criticalOP():
     df = load.uploadData()
     criticals =load.load_criticals()
     criticals = pr.expandRows(criticals)
-    tr.cancel_criticals(criticals,df)
+    criticals = pr.sp_trim(criticals)
+    criticals=tr.cancel_criticals(criticals,df)
 
 def CFN_WithdrawalOP():
     df = load.uploadData()
     criticals =load.load_criticals()
     criticals = pr.expandRows(criticals)
+    criticals = pr.sp_trim(criticals)
     tr.approved_criticals(criticals,df)
 
 def gaps_option():
@@ -67,6 +69,13 @@ def gaps_option():
     consolidate = pr.gapTracking(df)
     print('Datos preocesados')
     pr.simple_excel(consolidate)
+
+def sufix_option():
+    df = load.uploadData()
+    df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
+    tr.by_cfn_sufix(df,df_plan)
+
 
 
 

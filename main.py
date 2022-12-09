@@ -16,6 +16,7 @@ if __name__ == "__main__":
             9. Missed Critical communications(Cancell Renewal)
             10. Missed Critical communications (approved CFN Withdrawal)
             11. Gaps on DataBases Report
+            12. Tracker by CFN (as sufix)
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -28,37 +29,28 @@ if __name__ == "__main__":
                 print('#-------------------------------')
         if option == 1:
             op.option_cfn()
-            menu = False
         elif option == 2:
             op.option_SubOU()
-            menu = False
         elif option == 3:
             op.option_reg()
-            menu = False
         elif option == 4:
             op.option_Planning()
-            menu = False
         elif option == 5:
             op.option_submitted()
-            menu = False
         elif option == 6:
             op.option_voucher()
-            menu = False
         elif option == 7:
             op.option_Timelapse()
-            menu = False
         elif option == 8:
-            op.option_expired()
-            menu = False
+            op.option_expired()         
         elif option == 9:
-            op.cancel_criticalOP()
-            menu = False
+            op.cancel_criticalOP()           
         elif option == 10:
             op.CFN_WithdrawalOP()
-            menu = False
         elif option == 11:
             op.gaps_option()
-            menu = False
+        elif option == 12:
+            op.sufix_option()
         else:
             print('Opción incorrecta')
             print('#-------------------------------')

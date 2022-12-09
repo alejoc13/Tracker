@@ -190,3 +190,7 @@ def gapTracking(df1):
         final_report = pd.concat([final_report,report])
         print(f'Report for {country} was done!')
     return final_report
+
+def sufix_search(df,ref):
+     temp = df[df['CFN'].str.startswith(ref)]
+     return temp
