@@ -61,6 +61,14 @@ def CFN_WithdrawalOP():
     criticals = pr.expandRows(criticals)
     tr.approved_criticals(criticals,df)
 
+def gaps_option():
+    df = load.uploadData()
+    print('Procesando las bases de datos...Espere')
+    consolidate = pr.gapTracking(df)
+    print('Datos preocesados')
+    pr.simple_excel(consolidate)
+
+
 
 
 

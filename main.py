@@ -15,6 +15,7 @@ if __name__ == "__main__":
             8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda)
             9. Missed Critical communications(Cancell Renewal)
             10. Missed Critical communications (approved CFN Withdrawal)
+            11. Gaps on DataBases Report
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -54,6 +55,9 @@ if __name__ == "__main__":
             menu = False
         elif option == 10:
             op.CFN_WithdrawalOP()
+            menu = False
+        elif option == 11:
+            op.gaps_option()
             menu = False
         else:
             print('Opción incorrecta')

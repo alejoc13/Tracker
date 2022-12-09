@@ -55,7 +55,6 @@ def excel_by_Cluster(df,splan):
     df_sola = df[df['Country'].isin(sola)]
     df_cela = df[df['Country'].isin(cela)]
     df_brasil = df[df['Country'] == 'BR']
-
     df_registration = df.drop(['CFN','CFN DESCRIPTION','Country'],axis = 1)
     df_registration = df_registration.rename(columns={'STATUS':'Status base de datos'})
     df_registration = df_registration.drop_duplicates(subset=['REGISTRATION NUMBER'])
@@ -114,6 +113,12 @@ def excel_Vouchers(mx,ar):
         mx.to_excel(writer1, sheet_name = 'Mexico', index = False)
         ar.to_excel(writer1, sheet_name  = 'Argentina',index = False)
 
+def simple_excel(df):
+    file = input('Nombre del archivo a guardar: ')
+    path = f'trackResults\{file}.xlsx'
+    with pd.ExcelWriter(path) as writer1:
+        df.to_excel(writer1, sheet_name = 'Cosolidado', index = False)
+
 def sp_trim(df):
     for name in df.columns:
         if name not in ['Submission Date','Approval Date','Expected Approval Date','Created','PC3 Due Date','DM Complete date','PC3 Complete Date','License Expiration Date']:
@@ -152,3 +157,36 @@ def expandRows(df):
     df['ST cut'] = df.apply(cut_values,axis =1,column='Submission Type',sep='/')
     new_criticals = newCol(df)
     return new_criticals
+
+def obtain_row(df):
+
+    list_RS  = df["REGISTRATION NUMBER"].unique()
+    list_error= {}
+    for rs in list_RS:
+        guarda = []
+        for i in range(len(df["REGISTRATION NUMBER"])):
+                if df["REGISTRATION NUMBER"][i]== rs:
+                    guarda.append(i+2)
+        contador = 0
+        gap = []
+        for j in range(len(guarda)-1):
+            if guarda[j+1] != (guarda[j]+1):
+                gap.append([guarda[j],guarda[j+1]])
+                contador = contador + 1
+        if contador != 0:
+            list_error[rs] = gap
+    return list_error
+
+def gapTracking(df1):
+    final_report = pd.DataFrame(columns=["RSS","gaps","Country"])
+    contries = df1['Country'].unique()
+    for country in contries:
+        print(f'Procesando los datos de {country}')
+        df = df1[df1['Country']==country]
+        df= df.reset_index(drop=True)
+        list_error = obtain_row(df)
+        report = pd.DataFrame(columns=["RSS","gaps","Country"])
+        report["RSS"],report["gaps"],report["Country"] = list_error.keys(),list_error.values(),country
+        final_report = pd.concat([final_report,report])
+        print(f'Report for {country} was done!')
+    return final_report
