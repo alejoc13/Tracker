@@ -72,6 +72,6 @@ def approved_criticals(criticals,df):
     criticals = criticals[(criticals['Status'] == 'APPROVED') & (criticals['Submission Type'] == 'CFN Withdrawal')]
     listado = [var.strip() for var in criticals['REGISTRATION NUMBER']]
     listado = set(listado)
-    df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'Vigente, no se renovará')]
+    df1 = df[(df['REGISTRATION NUMBER'].isin(listado))]
     pr.create_excel(df1,criticals)
 
