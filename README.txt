@@ -118,7 +118,12 @@ Descripción de cada funcionalidad
      afectados esstos se encontrarán listados ahí.
  
  11. Gaps on DataBases Report: Esta herramienta genera un consolidado de todos los registros y permite identificar cuando un registro no fue alimentado en las bases de datos un CFN despues del sigueinte,
-     sino   que por el contrario tiene saltos en la BD, cosa que podría inducir a perdida vizual de la información si no se tioene esto en ceunta. 
+     sino   que por el contrario tiene saltos en la BD, cosa que podría inducir a perdida vizual de la información si no se tioene esto en ceunta.
+
+ 12. Tracker by CFN (as sufix): Esta herramietna funciona de la misma manera que la opción 1. Pero difiere en que aquí se tiene la capacidad de buscar CFNs que pueden presentar sufijos. Se ingresa el documento
+     con la lsita de CFNs y el algoritmo automaticamente detectará todo cfn que inicie de la misma manera pero tenga caracteres adicionales al final.
+     NOTA: Como recomendación general, esta opción debe usarse solo si es necesario obtener los cfns con sufijos, de lo contrario para una mas alta eficiencia y velocidad en el funcionamiento del algoritmo utilice 
+     la opción 1 de busquedas exactas.
  
 #--------------------------------------------------------------------------------------------
 Consideraciones en la finalización de la ejecución
