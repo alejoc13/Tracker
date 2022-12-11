@@ -38,6 +38,7 @@ def uploadData():
     df = pd.DataFrame(columns= ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'])
     for country in countries.keys():
         db_path = path+path_db[country]
+        print(db_path)
         temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE'])
         temporal['Country'] = country
@@ -60,6 +61,7 @@ def uploadData():
     df_brasil = pd.DataFrame(columns= ['Country','Registro ANVISA','Nome do Registro','Status do Registro','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'])
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
+        print(db_path)
         temporal =pd.read_excel(db_path,sheet_name = 'Banco de Dados',
                                 usecols= ['Registro ANVISA','Nome do Registro','Status do Registro','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'],converters={'Código':str,'Registro ANVISA':str},
                                 date_parser = ['Data de Vencimento do Registro '])
@@ -81,6 +83,7 @@ def uploadData():
     df_AR = pd.DataFrame(columns = ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'] )
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
+        print(db_path)
         temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'],
                                 date_parser = ['EXPIRATION DATE'],converters = {'REGISTRTION NUMBER':str,'CFN':str,} )
         temporal['Country'] = 'AR'
@@ -96,6 +99,7 @@ def uploadData():
     df = pd.concat([df,temporal],ignore_index=True)
 
     db_path = path + r'\Honduras\MDT-MITG Base de datos Honduras.xlsx'
+    print(db_path)
     honduras = pd.read_excel(db_path,usecols='A:L',converters = {'Registration number':str,'CFN':str})
     honduras = honduras.rename(columns={'BU':'OU','Descripción':'CFN DESCRIPTION','Approval date \n(dia-Mes-YY)':'APPROVAL DATE','Expire date \n(dia-Mes-YY)':'EXPIRATION DATE',
                                         'Distribuidor':'DISTRIBUTOR','Product name':'REGISTRATION NAME','Manufacturing site 2 (If apply)':'Manufacturing site 2',
@@ -113,6 +117,7 @@ def uploadData():
     df = pd.concat([df,temporal],ignore_index=True)
 
     db_path = path + r'\Honduras\MDT-MITG Base de datos Honduras.xlsx'
+    print(db_path)
     honduras = pd.read_excel(db_path,sheet_name='MITG Local',converters = {'Nº LICENSE':str,'CODES':str})
     honduras = honduras.rename(columns={'CODES':'CFN','LÍNEA':'OU','Nº LICENSE':'REGISTRATION NUMBER','DESCRPTION OF THE REFERENCE CODE':'CFN DESCRIPTION',
                                         'ADDRESS':'MANUFACTURING SITE','DESCRIPCION OF APPROVAL':'REGISTRATION NAME','EXPIRATION \nDAY':'EXPIRATION DATE',
@@ -130,6 +135,7 @@ def uploadData():
 
     db_path = path + r'\República Dominicana\MITG Base de datos Republica Dominicana.xlsx'
     RepDo = pd.read_excel(db_path,usecols='A:M',converters = {'REGISTRO SANITARIO No.':str,'REFERENCIA':str})
+    print(db_path)
 
     RepDo = RepDo.rename(columns={'REFERENCIA':'CFN','REGISTRO SANITARIO No.':'REGISTRATION NUMBER','TITULAR':'LICENSE HOLDER','FABRICADO POR':'MANUFACTURING SITE',
                                 'BU':'OU','VIGENCIA DEL REGISTRO SANITARIO (dd/mm/aaaa)':'EXPIRATION DATE','DESCRIPCIÓN DE REFERENCIA':'CFN DESCRIPTION',
