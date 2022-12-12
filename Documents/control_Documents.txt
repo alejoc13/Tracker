@@ -1,0 +1,1 @@
+Este archivo tiene la intención de poder mantener la carperta activa cuadno se realiza push ignorando los archivos .xlsx
