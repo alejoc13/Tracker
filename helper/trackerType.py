@@ -85,3 +85,10 @@ def by_cfn_sufix(df,sp):
         temp = pr.sufix_search(df,cfn)
         sufix_df = pd.concat([sufix_df,temp])
     pr.create_excel(sufix_df,sp)
+
+def missed(df):
+    df1 = pr.filterDates(df)
+    pr.excel_ClusterReport(df1)
+    pr.excel_byTG(df1)
+
+    
