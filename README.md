@@ -124,6 +124,11 @@ Descripción de cada funcionalidad
      con la lsita de CFNs y el algoritmo automaticamente detectará todo cfn que inicie de la misma manera pero tenga caracteres adicionales al final.
      NOTA: Como recomendación general, esta opción debe usarse solo si es necesario obtener los cfns con sufijos, de lo contrario para una mas alta eficiencia y velocidad en el funcionamiento del algoritmo utilice 
      la opción 1 de busquedas exactas.
+ 13. Cruzar Documento externo con Submission Plan: Esta funcionalidad permite cargar un documento desde la carpeta Documents de la herramienta 
+     para realizar una busqueda en la versión del submission plan que se tenga almacenada para uso. Cuadno se seleccione esta opción le solicitará 
+     dos ingresos por teclado. El primero será el nombre del documento qeu se vá a utilziar y posterior a eso, le solictará el nombre de la hoja del
+     documento a utilizar, esto con el fin de prevenir errores en caso que el documento tenga multiples hojas.
+      IMPORTANTE: La busqueda se realzia a través de la columna 'REGISTRATION NUMBER' del submission plan. Por tanto la columna que contenga este valor en el documento externo debe tener este mismo nombre. 
  
 #--------------------------------------------------------------------------------------------
 Consideraciones en la finalización de la ejecución
@@ -143,4 +148,4 @@ IMPORTANTE:
 1. Usted no deberá realizar modificaciones en el codigo en ningun moemnto, la herramienta está diseñada para qeu toda la experiencia de uso sea desde la consola y no sea necesario modificar nada en los distintos archivos .py
 que comforman el proyecto.
 
-2. Depresentarse fallas por favor comuniquese con Alejandro Castrillon email: johanalejandro.castrillonrodriguez@medtronic.com uy especifique el fallo en el e-mail. La falla será atendida tan pronto como sea posible.
+2. De presentarse fallas por favor comuniquese con Alejandro Castrillon (email: johanalejandro.castrillonrodriguez@medtronic.com) y especifique el fallo en el e-mail. La falla será atendida tan pronto como sea posible.
