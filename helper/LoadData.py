@@ -179,6 +179,15 @@ def load_criticals():
     df = df.rename(columns={'PRODUCT NAME':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
     print('Critical communications cargados')
     return df
+
+def load_external():
+    Name = input('Ingrese el nombre del documento a cruzar con el Submission plan: ')
+    FileName = f'Documents/{Name}.xlsx'
+    hoja = input('Ingrese el nombre de la hoja principal con la que se cruzará el Submission Plan: ')
+    print(f'Cargando {FileName}')
+    df = pd.read_excel(FileName,sheet_name = hoja )
+    return df
+
     
 
 

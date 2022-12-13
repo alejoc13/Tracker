@@ -76,6 +76,13 @@ def sufix_option():
     df_plan = pr.sp_trim(df_plan)
     tr.by_cfn_sufix(df,df_plan)
 
+def track_manual():
+    df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
+    external = load.load_external()
+    external = pr.sp_trim(external)
+    pr.create_excel(external,df_plan)
+
 
 
 
