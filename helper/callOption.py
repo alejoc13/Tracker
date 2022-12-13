@@ -83,6 +83,12 @@ def track_manual():
     external = pr.sp_trim(external)
     pr.create_excel(external,df_plan)
 
+def MissedExpectedDAte():
+    df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
+    tr.missed(df_plan)
+
+
 
 
 

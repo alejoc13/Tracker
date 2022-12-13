@@ -18,6 +18,7 @@ if __name__ == "__main__":
             11. Gaps on DataBases Report
             12. Tracker by CFN (as sufix)
             13. Cruzar Documento externo con Submission Plan
+            14. Reportar Expected Submission Date omitidas
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -54,6 +55,8 @@ if __name__ == "__main__":
             op.sufix_option()
         elif option == 13:
             op.track_manual()
+        elif option == 14:
+            op.MissedExpectedDAte()
 
         else:
             print('Opción incorrecta')
