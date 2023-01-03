@@ -8,6 +8,7 @@ def by_cfn(df,sp):
     ref = pd.read_excel(FileName,converters={'CFN':str})
     lista = [cfn.strip() for cfn in ref['CFN']]
     track = df[df['CFN'].isin(lista)]
+    sp = sp.drop(['SubOU'],axis = 1)
     pr.create_excel(track,sp)
 
 def by_SubOU(df,df_plan):
@@ -15,12 +16,14 @@ def by_SubOU(df,df_plan):
     aux = ref.split(',')
     lista = [ou.strip() for ou in aux]
     track = df[df['OU'].isin(lista)]
+    df_plan = df_plan.drop(['SubOU'],axis = 1)
     pr.create_excel(track,df_plan)
 
 def expirated(df,sp):
     ref = datetime.datetime.today()
     df1 = pr.prepareDateTracker(df)
     track = df1[df1['EXPIRATION DATE']<ref]
+    sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
 def TimeLapse(df,sp):
@@ -28,6 +31,7 @@ def TimeLapse(df,sp):
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
     df1 = pr.prepareDateTracker(df)
     track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
+    sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
 def by_registration(df,sp):
@@ -36,6 +40,7 @@ def by_registration(df,sp):
     ref = pd.read_excel(FileName,converters={'REGISTRATION':str})
     lista = [cfn.strip() for cfn in ref['REGISTRATION']]
     track = df[df['REGISTRATION NUMBER'].isin(lista)]
+    sp = sp.drop(['SubOU'],axis = 1)
     pr.create_excel(track,sp)
 
 def Submitted_Control(sp):
