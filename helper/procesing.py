@@ -36,8 +36,11 @@ def concatMfg(row,colum1 = 'Manufacturing site 1',colum2 = 'Manufacturing site 2
 def create_excel(df,splan):
     file = input('Nombre del archivo a guardar: ')
     path = f'trackResults\{file}.xlsx'
-    df_registration = df.drop(['CFN','CFN DESCRIPTION'],axis = 1)
-    df_registration = df_registration.drop_duplicates(subset=['REGISTRATION NUMBER'])
+    try:
+        df_registration = df.drop(['CFN','CFN DESCRIPTION'],axis = 1)
+        df_registration = df_registration.drop_duplicates(subset=['REGISTRATION NUMBER'])
+    except:
+        df_registration = df_registration
     repo = pd.merge(splan,df_registration, how='inner',on='REGISTRATION NUMBER')
     with pd.ExcelWriter(path) as writer1:
         df.to_excel(writer1, sheet_name = 'CFNs', index = False)
