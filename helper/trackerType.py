@@ -97,12 +97,18 @@ def missed(df):
     pr.excel_byTG(df1)
 
 def noSubmissionID(df,sp):
-    
     init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
     df1 = pr.prepareDateTracker(df)
     track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
     sp = sp[sp['Submission Type'].str.contains('Renewal')]
-    
+    track = pr.ProccesNoID(track,sp)
+    pr.excelnoID(track)
+
+def externalNoID(sp):
+    name = input('Ingrese el nombre del archivo: ')
+    sheet = input('Ingrese el nombre de la hoja en la que estan almacenados los datos: ')
+    FileName = f'Documents\{name}.xlsx'
+    track = pd.read_excel(FileName,sheet_name=sheet,converters={'REGISTRATION NUMBER':str})
     track = pr.ProccesNoID(track,sp)
     pr.excelnoID(track)

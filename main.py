@@ -20,6 +20,7 @@ if __name__ == "__main__":
             13. Cruzar Documento externo con Submission Plan
             14. Reportar Expected Submission Date omitidas
             15. Track no ID licenses
+            16.External tracker for no ID
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -61,7 +62,8 @@ if __name__ == "__main__":
         elif option == 15:
             op.planingRenewals()
         elif option == 16:
-            pass
+            op.compareNoID()
+            
 
         else:
             print('Opción incorrecta')
