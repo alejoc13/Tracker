@@ -110,5 +110,6 @@ def externalNoID(sp):
     sheet = input('Ingrese el nombre de la hoja en la que estan almacenados los datos: ')
     FileName = f'Documents\{name}.xlsx'
     track = pd.read_excel(FileName,sheet_name=sheet,converters={'REGISTRATION NUMBER':str})
+    sp = sp[sp['Submission Type'].str.contains('Renewal')]
     track = pr.ProccesNoID(track,sp)
     pr.excelnoID(track)
