@@ -96,4 +96,13 @@ def missed(df):
     pr.excel_ClusterReport(df1)
     pr.excel_byTG(df1)
 
+def noSubmissionID(df,sp):
     
+    init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
+    end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
+    df1 = pr.prepareDateTracker(df)
+    track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
+    sp = sp[sp['Submission Type'].str.contains('Renewal')]
+    
+    track = pr.ProccesNoID(track,sp)
+    pr.excelnoID(track)

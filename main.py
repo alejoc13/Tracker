@@ -19,6 +19,7 @@ if __name__ == "__main__":
             12. Tracker by CFN (as sufix)
             13. Cruzar Documento externo con Submission Plan
             14. Reportar Expected Submission Date omitidas
+            15. Track no ID licenses
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -57,6 +58,10 @@ if __name__ == "__main__":
             op.track_manual()
         elif option == 14:
             op.MissedExpectedDAte()
+        elif option == 15:
+            op.planingRenewals()
+        elif option == 16:
+            pass
 
         else:
             print('Opción incorrecta')

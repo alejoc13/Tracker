@@ -202,3 +202,16 @@ def filterDates(df):
     df1 = df[(df['Expected Submission Date'].isna()) & (df['Status'] != 'CANCELLED')]
   
     return df1
+
+def ProccesNoID(df,sp):
+    val = [rs.strip() for rs in sp['REGISTRATION NUMBER']]
+    df = df[~df['REGISTRATION NUMBER'].isin(val)]
+    
+    df = df.drop('CFN',axis = 1)
+    df = df.drop_duplicates(subset = ['REGISTRATION NUMBER'])
+    return df
+
+def excelnoID(df):
+    file = input('Nombre del archivo a guardar: ')
+    path = f'trackResults\{file}.xlsx' 
+    df.to_excel(path,index = False)

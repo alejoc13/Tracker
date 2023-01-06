@@ -88,7 +88,14 @@ def MissedExpectedDAte():
     df_plan = pr.sp_trim(df_plan)
     tr.missed(df_plan)
 
+def planingRenewals():
+    df = load.uploadData()
+    df_plan = load.load_SPlan()
+    df_plan = pr.sp_trim(df_plan)
+    tr.noSubmissionID(df,df_plan)
 
+def externalNoID():
+    pass
 
 
 
