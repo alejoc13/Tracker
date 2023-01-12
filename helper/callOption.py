@@ -100,6 +100,10 @@ def compareNoID():
     tr.externalNoID(df_plan)
     pass
 
+def DatesComparation():
+    df = load.uploadData()
+    df_plan = load.load_SPlan()
+    tr.comparareDAtes(df,df_plan)
 
 
 

@@ -123,9 +123,11 @@ def simple_excel(df):
         df.to_excel(writer1, sheet_name = 'Cosolidado', index = False)
 
 def sp_trim(df):
+    print('Pre proesando los datos....')
     for name in df.columns:
         if name not in ['Expected Submission Date','Submission Date','Approval Date','Expected Approval Date','Created','PC3 Due Date','DM Complete date','PC3 Complete Date','License Expiration Date','EXPIRATION DATE']:
             df[name] = df.apply(trim_column,axis = 1,column = name)
+    print('Los datos fueron correctamente trimeados')
     return df
 
 def chageSeparator(row,col = 'Submission Type'):
@@ -214,3 +216,13 @@ def excelnoID(df):
     file = input('Nombre del archivo a guardar: ')
     path = f'trackResults\{file}.xlsx' 
     df.to_excel(path,index = False)
+
+def PrepareDats(df):
+    df = df.dropna(subset='EXPIRATION DATE')
+    return df
+
+def SepareteRegistrations(df):
+    df = df.drop('CFN',axis=1)
+    df =df.drop_duplicates(subset='REGISTRATION NUMBER')
+    df = sp_trim(df)
+    return df

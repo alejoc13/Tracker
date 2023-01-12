@@ -21,6 +21,7 @@ if __name__ == "__main__":
             14. Reportar Expected Submission Date omitidas
             15. Track no ID licenses
             16.External tracker for no ID
+            17.Compare Expirations Dates (SP and DBs)
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -63,6 +64,8 @@ if __name__ == "__main__":
             op.planingRenewals()
         elif option == 16:
             op.compareNoID()
+        elif option == 17:
+            op.DatesComparation()
             
 
         else:

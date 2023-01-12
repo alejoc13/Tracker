@@ -113,3 +113,10 @@ def externalNoID(sp):
     sp = sp[sp['Submission Type'].str.contains('Renewal')]
     track = pr.ProccesNoID(track,sp)
     pr.excelnoID(track)
+
+def comparareDAtes(df,df_plan):
+    df = pr.SepareteRegistrations(df)
+    df_plan = pr.sp_trim(df_plan)
+    
+    
+
