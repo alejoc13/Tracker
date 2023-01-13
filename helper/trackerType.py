@@ -114,9 +114,30 @@ def externalNoID(sp):
     track = pr.ProccesNoID(track,sp)
     pr.excelnoID(track)
 
+def comparingDates(row):
+    if row['EXPIRATION DATE BD'] == row['EXPIRATION DATE SP']:
+        return 'Consistente'
+    else:
+        return 'Inconsistente'
+
 def comparareDAtes(df,df_plan):
+    
+    df1 = pd.DataFrame(columns=['REGISTRATION NUMBER','EXPIRATION DATE'])
     df = pr.SepareteRegistrations(df)
+    df = pr.sp_trim(df)
+    df1['REGISTRATION NUMBER'] = df['REGISTRATION NUMBER']
+    df1['EXPIRATION DATE BD'] = df['EXPIRATION DATE']
     df_plan = pr.sp_trim(df_plan)
+    df_plan = df_plan[~df_plan['Status'].isin(['APPROVED','CANCELLED'])]
+    df_plan = df_plan.rename(columns={'EXPIRATION DATE':'EXPIRATION DATE SP'})
+    df_merge = pd.merge(df_plan,df1, how='inner',on='REGISTRATION NUMBER')
+    df_merge['Consistencia'] = df_merge.apply(comparingDates,axis=1)
+    df_merge = df_merge[df_merge['Consistencia'] == 'Inconsistente']
+    df_merge.to_excel('trackResults\Consistencia en Fechas de vencimientos.xlsx',index=False)
+
+
+    
+
     
     
 
