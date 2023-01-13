@@ -208,7 +208,11 @@ def filterDates(df):
 def ProccesNoID(df,sp):
     val = [rs.strip() for rs in sp['REGISTRATION NUMBER']]
     df = df[~df['REGISTRATION NUMBER'].isin(val)]
-    df = df.drop('CFN',axis = 1)
+    
+    try:
+        df = df.drop('CFN',axis = 1)
+    except:
+        print('Not CFN column')
     df = df.drop_duplicates(subset = ['REGISTRATION NUMBER'])
     return df
 

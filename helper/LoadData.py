@@ -89,7 +89,7 @@ def uploadData():
     df_brasil = df_brasil.rename(columns={'Código':'CFN','BU':'OU','Registro ANVISA':'REGISTRATION NUMBER','Data de Vencimento do Registro ':'EXPIRATION DATE',
                                 'Nome do Registro':'REGISTRATION NAME', 'Descrição do Código':'CFN DESCRIPTION','Status do Registro':'STATUS','Fabricante Físico (Real)':'MANUFACTURING SITE',
                                 'Detentor do Registro':'LICENSE HOLDER','Data de Aprovação Inicial':'APPROVAL DATE','Classe de Risco ':'RISK CLASSIFICATION'})
-    # df_brasil = df_brasil[~df_brasil['STATUS'].isin(['Cancelado','OBSOLETO','obsoleto','Obsoleto','\\','Vencido'])]
+    df_brasil = df_brasil[~df_brasil['STATUS'].isin(['Cancelado','OBSOLETO','obsoleto','Obsoleto','\\','Vencido'])]
     
     df = pd.concat([df,df_brasil],ignore_index=True)
     brand_code = {
