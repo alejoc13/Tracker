@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 
 def uploadData():
     print('Cargando Bases de datos...')
-    path = os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Approvals')
+    path = os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Documents\Databases')
     countries = {
         'BO': 'Bolivia',
         'CO': 'Colombia',
@@ -35,17 +35,17 @@ def uploadData():
         'VE': r'\Venezuela\MDT Venezuela DB.xlsm',
         'PY': r'\Paraguay\MDT Paraguay DB.xlsm',
     }
-    df = pd.DataFrame(columns= ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'])
+    df = pd.DataFrame(columns= ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'])
     for country in countries.keys():
         db_path = path+path_db[country]
         print(db_path)
-        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
         temporal['Country'] = country
         df = pd.concat([df,temporal],ignore_index=True)
     
     db_path = path + r'\Uruguay\MDT Uruguay DB.xlsm'
-    temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+    temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
     temporal['Country'] = 'UY'
     temporal['CFN DESCRIPTION'] = 'No disponible en BD'
@@ -76,19 +76,19 @@ def uploadData():
         'MDT': r'\Brasil\Piloto Oficial_MDT_2020.06.08.xlsm'
         }
 
-    df_brasil = pd.DataFrame(columns= ['Country','Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'])
+    df_brasil = pd.DataFrame(columns= ['Country','Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro','Comentários'])
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
         print(db_path)
         temporal =pd.read_excel(db_path,sheet_name = 'Banco de Dados',
-                                usecols= ['Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'],converters={'Código':str,'Registro ANVISA':str},
+                                usecols= ['Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro','Comentários'],converters={'Código':str,'Registro ANVISA':str},
                                 date_parser = ['Data de Vencimento do Registro ','Data de Aprovação Inicial'])
         temporal['Country'] = 'BR'
         df_brasil = pd.concat([df_brasil,temporal],ignore_index=True)
     
     df_brasil = df_brasil.rename(columns={'Código':'CFN','BU':'OU','Registro ANVISA':'REGISTRATION NUMBER','Data de Vencimento do Registro ':'EXPIRATION DATE',
                                 'Nome do Registro':'REGISTRATION NAME', 'Descrição do Código':'CFN DESCRIPTION','Status do Registro':'STATUS','Fabricante Físico (Real)':'MANUFACTURING SITE',
-                                'Detentor do Registro':'LICENSE HOLDER','Data de Aprovação Inicial':'APPROVAL DATE','Classe de Risco ':'RISK CLASSIFICATION'})
+                                'Detentor do Registro':'LICENSE HOLDER','Data de Aprovação Inicial':'APPROVAL DATE','Classe de Risco ':'RISK CLASSIFICATION','Comentários':'COMMENTS'})
     df_brasil = df_brasil[~df_brasil['STATUS'].isin(['Cancelado','OBSOLETO','obsoleto','Obsoleto','\\','Vencido'])]
     
     df = pd.concat([df,df_brasil],ignore_index=True)
