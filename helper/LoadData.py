@@ -100,11 +100,11 @@ def uploadData():
         'COV': r'\Argentina\COV Argentina DB.xlsm',
         'MDT': r'\Argentina\MDT Argentina DB.xlsm'
         }
-    df_AR = pd.DataFrame(columns = ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'] )
+    df_AR = pd.DataFrame(columns = ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER','COMMENTS'] )
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
         print(db_path)
-        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'],
+        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER','COMMENTS'],
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'],converters = {'REGISTRTION NUMBER':str,'CFN':str,} )
         temporal['Country'] = 'AR'
         df_AR = pd.concat([df_AR,temporal],ignore_index=True)
@@ -113,7 +113,7 @@ def uploadData():
     df_AR['CUT NAME'] = df_AR.apply(pr.cut_values,axis = 1,column = 'MANUFACTURING NAME')
     df_AR['MANUFACTURING SITE'] = df_AR.apply(pr.paste_problem,axis=1)
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'])
     for column in temporal.columns:
         temporal[column] = df_AR[column]
     df = pd.concat([df,temporal],ignore_index=True)
@@ -142,7 +142,7 @@ def uploadData():
     honduras = pd.read_excel(db_path,sheet_name='MITG Local',converters = {'Nº LICENSE':str,'CODES':str})
     honduras = honduras.rename(columns={'CODES':'CFN','LÍNEA':'OU','Nº LICENSE':'REGISTRATION NUMBER','DESCRPTION OF THE REFERENCE CODE':'CFN DESCRIPTION',
                                         'ADDRESS':'MANUFACTURING SITE','DESCRIPCION OF APPROVAL':'REGISTRATION NAME','EXPIRATION \nDAY':'EXPIRATION DATE',
-                                        'APPROVAL \nDATE':'APPROVAL DATE'}
+                                        'APPROVAL \nDATE':'APPROVAL DATE','COMENTARIOS':'COMMENTS'}
                             )
     honduras['Country'] = 'HN'
 
@@ -150,7 +150,7 @@ def uploadData():
     honduras['LICENSE HOLDER'] = 'No disponible en BD'
     honduras['RISK CLASSIFICATION'] = 'No disponible en BD'
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'])
     for column in temporal.columns:
         temporal[column] = honduras[column]
     df = pd.concat([df,temporal],ignore_index=True)
