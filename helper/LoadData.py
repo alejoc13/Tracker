@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 
 def uploadData():
     print('Cargando Bases de datos...')
-    path = os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Approvals')
+    path = os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Databases')
     countries = {
         'BO': 'Bolivia',
         'CO': 'Colombia',
