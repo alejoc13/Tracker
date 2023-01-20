@@ -149,6 +149,7 @@ def uploadData():
     honduras['STATUS'] = 'No disponible en BD'
     honduras['LICENSE HOLDER'] = 'No disponible en BD'
     honduras['RISK CLASSIFICATION'] = 'No disponible en BD'
+    honduras['COMMENTS'] = 'No disponible en BD'
 
     temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'])
     for column in temporal.columns:
@@ -161,13 +162,13 @@ def uploadData():
 
     RepDo = RepDo.rename(columns={'REFERENCIA':'CFN','REGISTRO SANITARIO No.':'REGISTRATION NUMBER','TITULAR':'LICENSE HOLDER','FABRICADO POR':'MANUFACTURING SITE',
                                 'BU':'OU','VIGENCIA DEL REGISTRO SANITARIO (dd/mm/aaaa)':'EXPIRATION DATE','DESCRIPCIÓN DE REFERENCIA':'CFN DESCRIPTION',
-                                'DENOMINACION DEL PRODUCTO SEGÚN REGISTRO SANITARIO':'REGISTRATION NAME','FECHA DE EXPEDICIÓN':'APPROVAL DATE'})
+                                'DENOMINACION DEL PRODUCTO SEGÚN REGISTRO SANITARIO':'REGISTRATION NAME','FECHA DE EXPEDICIÓN':'APPROVAL DATE','COMENTARIOS':'COMMENTS'})
 
     RepDo['STATUS'] =  'No disponible en BD'
     RepDo['Country'] = 'DO'
     RepDo['RISK CLASSIFICATION'] =  'No disponible en BD'
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'])
     for column in temporal.columns:
         temporal[column] = RepDo[column]
     df = pd.concat([df,temporal],ignore_index=True)
@@ -211,6 +212,6 @@ def load_external():
     df = pd.read_excel(FileName,sheet_name = hoja )
     return df
 
-    
+
 
 
