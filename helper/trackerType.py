@@ -102,6 +102,7 @@ def noSubmissionID(df,sp):
     df1 = pr.prepareDateTracker(df)
     track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
     sp = sp[sp['Submission Type'].str.contains('Renewal')]
+    sp = sp[~sp['Status'].isin(['APPROVED','CANCELLED'])]
     track = pr.ProccesNoID(track,sp)
     pr.excelnoID(track)
 
