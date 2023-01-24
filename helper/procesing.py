@@ -40,7 +40,9 @@ def create_excel(df,splan):
         df_registration = df.drop(['CFN','CFN DESCRIPTION'],axis = 1)
         df_registration = df_registration.drop_duplicates(subset=['REGISTRATION NUMBER'])
     except:
-        df_registration = df_registration
+        df_registration = df.copy()
+        print(df.copy())
+
     repo = pd.merge(splan,df_registration, how='inner',on='REGISTRATION NUMBER')
     with pd.ExcelWriter(path) as writer1:
         df.to_excel(writer1, sheet_name = 'CFNs', index = False)
