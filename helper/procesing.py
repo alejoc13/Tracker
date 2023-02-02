@@ -200,6 +200,7 @@ def gapTracking(df1):
 
 def sufix_search(df,ref):
      temp = df[df['CFN'].str.startswith(ref)]
+     temp['Search Criteria'] = ref
      return temp
 
 def filterDates(df):
