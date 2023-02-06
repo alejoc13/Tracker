@@ -5,7 +5,16 @@ import re
 import os
 import warnings
 import numpy as np
+import smartsheet
 warnings.filterwarnings('ignore')
+
+def getReport(report_id,reportName):
+    print(f'Downloading {reportName}')
+    current_dir = os.getcwd()
+    path = f'{current_dir}\Documents/'
+    smart = smartsheet.Smartsheet('jmCffRcu8ala6rj1rr2aakv43pXi29SjFgvEy')
+    smart.Reports.get_report_as_excel(report_id,path,reportName)
+    print(f'{reportName} was correctly Downloaded')
 
 def uploadData():
     print('Cargando Bases de datos...')
@@ -182,6 +191,9 @@ def uploadData():
     return df
 
 def load_SPlan():
+    report_id ='8721565023004548'
+    reportName = 'Submission Plan - Full Report.xlsx'
+    getReport(report_id,reportName)
     print('Cargando Submission Plan...')
     df_plan = pd.read_excel('Documents\Submission Plan - Full Report.xlsx',usecols=['Id','RAS Name','Project/Product Name','Status','Submission Type','Expected Submission Date','Approval Date','Therapy Group',
                             'Expected Approval Date','Submission Date','Country','Cluster','License Number','RAC/RAN','SubOU','License Expiration Date'])
