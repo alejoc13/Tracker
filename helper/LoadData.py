@@ -6,7 +6,6 @@ import smartsheet
 warnings.filterwarnings('ignore')
 
 def optionDBs():
-    path = os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Documents\Databases')
     if os.path.isdir(os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Documents\Databases')):
         return  os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Documents\Databases')
     
