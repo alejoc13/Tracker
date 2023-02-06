@@ -1,7 +1,10 @@
 import pandas as pd
 import helper.procesing as pr
+import datetime
+import re
 import os
 import warnings
+import numpy as np
 import smartsheet
 warnings.filterwarnings('ignore')
 
@@ -22,7 +25,7 @@ def getReport(report_id,reportName,token):
     smart = smartsheet.Smartsheet(token)
     smart.Reports.get_report_as_excel(report_id,path,reportName)
     print(f'{reportName} was correctly Downloaded')
-
+    
 def uploadData():
     print('Cargando Bases de datos...')
     path = optionDBs()
@@ -267,4 +270,3 @@ def load_external():
     print(f'Cargando {FileName}')
     df = pd.read_excel(FileName,sheet_name = hoja )
     return df
-

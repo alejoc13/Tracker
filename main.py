@@ -1,9 +1,11 @@
 import helper.callOption as op
 import helper.LoadData as ld
+import helper.callOption as op
 
 if __name__ == "__main__":
     menu = True
     token = input('Ingrese el Token de seguridad para acceder a los datos de SmartSheet: ')
+    menu = True
     while menu != False:
         try:
             option = input('''
@@ -26,7 +28,7 @@ if __name__ == "__main__":
         elif option == 2:
             op.option_SubOU(token)
         elif option == 3:
-            op.option_reg()
+            op.option_reg(token)
         # elif option == 4:
         #     op.option_Planning()
         # elif option == 5:
@@ -58,11 +60,3 @@ if __name__ == "__main__":
         else:
             print('Opción incorrecta')
             print('#-------------------------------')
-    
-    
-    
-    
-
-        
-        
-        
