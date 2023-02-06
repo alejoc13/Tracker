@@ -9,10 +9,11 @@ import smartsheet
 warnings.filterwarnings('ignore')
 
 def getReport(report_id,reportName):
+    token = input('Ingrese el Token de autentificación para cargar los datos: ')
     print(f'Downloading {reportName}')
     current_dir = os.getcwd()
     path = f'{current_dir}\Documents/'
-    smart = smartsheet.Smartsheet('jmCffRcu8ala6rj1rr2aakv43pXi29SjFgvEy')
+    smart = smartsheet.Smartsheet(token)
     smart.Reports.get_report_as_excel(report_id,path,reportName)
     print(f'{reportName} was correctly Downloaded')
 
