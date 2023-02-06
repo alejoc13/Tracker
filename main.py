@@ -3,6 +3,7 @@ import helper.LoadData as ld
 
 if __name__ == "__main__":
     menu = True
+    token = input('Ingrese el Token de seguridad para acceder a los datos de SmartSheet: ')
     while menu != False:
         try:
             option = input('''
@@ -34,41 +35,40 @@ if __name__ == "__main__":
                 print('Opción invalida')
                 print('#-------------------------------')
         if option == 1:
-            op.option_cfn()
+            op.option_cfn(token)
         elif option == 2:
-            op.option_SubOU()
+            op.option_SubOU(token)
         elif option == 3:
-            op.option_reg()
+            op.option_reg(token)
         elif option == 4:
-            op.option_Planning()
+            op.option_Planning(token)
         elif option == 5:
-            op.option_submitted()
+            op.option_submitted(token)
         elif option == 6:
-            op.option_voucher()
+            op.option_voucher(token)
         elif option == 7:
-            op.option_Timelapse()
+            op.option_Timelapse(token)
         elif option == 8:
-            op.option_expired()         
+            op.option_expired(token)         
         elif option == 9:
-            op.cancel_criticalOP()           
+            op.cancel_criticalOP(token)           
         elif option == 10:
-            op.CFN_WithdrawalOP()
+            op.CFN_WithdrawalOP(token)
         elif option == 11:
-            op.gaps_option()
+            op.gaps_option(token)
         elif option == 12:
-            op.sufix_option()
+            op.sufix_option(token)
         elif option == 13:
-            op.track_manual()
+            op.track_manual(token)
         elif option == 14:
-            op.MissedExpectedDAte()
+            op.MissedExpectedDAte(token)
         elif option == 15:
-            op.planingRenewals()
+            op.planingRenewals(token)
         elif option == 16:
-            op.compareNoID()
+            op.compareNoID(token)
         elif option == 17:
-            op.DatesComparation()
+            op.DatesComparation(token)
             
-
         else:
             print('Opción incorrecta')
             print('#-------------------------------')

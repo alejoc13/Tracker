@@ -8,8 +8,7 @@ import numpy as np
 import smartsheet
 warnings.filterwarnings('ignore')
 
-def getReport(report_id,reportName):
-    token = input('Ingrese el Token de autentificación para cargar los datos: ')
+def getReport(report_id,reportName,token):
     print(f'Downloading {reportName}')
     current_dir = os.getcwd()
     path = f'{current_dir}\Documents/'
@@ -191,10 +190,10 @@ def uploadData():
 
     return df
 
-def load_SPlan():
+def load_SPlan(token):
     report_id ='8721565023004548'
     reportName = 'Submission Plan - Full Report.xlsx'
-    getReport(report_id,reportName)
+    getReport(report_id,reportName,token)
     print('Cargando Submission Plan...')
     df_plan = pd.read_excel('Documents\Submission Plan - Full Report.xlsx',usecols=['Id','RAS Name','Project/Product Name','Status','Submission Type','Expected Submission Date','Approval Date','Therapy Group',
                             'Expected Approval Date','Submission Date','Country','Cluster','License Number','RAC/RAN','SubOU','License Expiration Date'])
@@ -202,20 +201,20 @@ def load_SPlan():
     print('Submission Plan cargado')
     return df_plan
 
-def load_vouchers():
+def load_vouchers(token):
     report_id = 5282231775192964
     reportName = 'Vouchers Report.xlsx'
     print('Cargando los datos de Vouchers...')
-    getReport(report_id,reportName)
+    getReport(report_id,reportName,token)
     df = pd.read_excel('Documents\Vouchers Report.xlsx',converters = {'Primary':str})
     df = df.rename(columns={'Project/Product Name':'PRODUCT NAME','Primary':'REGISTRATION NUMBER'})
     print('Vouchers Cargados')
     return df
 
-def load_criticals():
+def load_criticals(token):
     report_id = 6660752464471940
     reportName = 'Expected Critical communications.xlsx'
-    getReport(report_id,reportName)
+    getReport(report_id,reportName,token)
     print('Cargando los datos de Expected Critical communications...')
     df = pd.read_excel('Documents\Expected Critical Communications Report.xlsx',date_parser=['License Expiration Date'],converters={'License Number':str})
     df = df.rename(columns={'PRODUCT NAME':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
