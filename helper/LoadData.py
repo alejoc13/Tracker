@@ -203,13 +203,19 @@ def load_SPlan():
     return df_plan
 
 def load_vouchers():
+    report_id = 5282231775192964
+    reportName = 'Vouchers Report.xlsx'
     print('Cargando los datos de Vouchers...')
+    getReport(report_id,reportName)
     df = pd.read_excel('Documents\Vouchers Report.xlsx',converters = {'Primary':str})
     df = df.rename(columns={'Project/Product Name':'PRODUCT NAME','Primary':'REGISTRATION NUMBER'})
     print('Vouchers Cargados')
     return df
 
 def load_criticals():
+    report_id = 6660752464471940
+    reportName = 'Expected Critical communications.xlsx'
+    getReport(report_id,reportName)
     print('Cargando los datos de Expected Critical communications...')
     df = pd.read_excel('Documents\Expected Critical Communications Report.xlsx',date_parser=['License Expiration Date'],converters={'License Number':str})
     df = df.rename(columns={'PRODUCT NAME':'PRODUCT NAME','License Number':'REGISTRATION NUMBER'})
@@ -223,7 +229,3 @@ def load_external():
     print(f'Cargando {FileName}')
     df = pd.read_excel(FileName,sheet_name = hoja )
     return df
-
-    
-
-
