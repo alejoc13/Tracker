@@ -46,7 +46,7 @@ if __name__ == "__main__":
         # elif option == 11:
         #     op.gaps_option()
         elif option == 12:
-            op.sufix_option()
+            op.sufix_option(token)
         # elif option == 13:
         #     op.track_manual()
         # elif option == 14:
