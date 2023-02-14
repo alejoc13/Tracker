@@ -15,7 +15,14 @@ def optionDBs():
     elif os.path.isdir(os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Databases')):
         return os.path.join(os.path.expanduser('~'), r'Medtronic PLC\Approvals and Databases SSC - Databases')
     
-
+def getSheets(sheet_id,SheetName,token):
+    print(f'Downloading {SheetName}')
+    current_dir = os.getcwd()
+    path = f'{current_dir}\Documents/'
+    smart = smartsheet.Smartsheet(token)
+    smart.Sheets.get_sheet_as_excel(sheet_id,path,SheetName)
+    print(f'{SheetName} was correctly Downloaded')
+    
 def getReport(report_id,reportName,token):
     print(f'Downloading {reportName}')
     current_dir = os.getcwd()
