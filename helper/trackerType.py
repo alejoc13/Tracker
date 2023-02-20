@@ -23,7 +23,7 @@ def by_SubOU(df,df_plan):
 def expirated(df,sp):
     ref = datetime.datetime.today()
     df1 = pr.prepareDateTracker(df)
-    track = df1[df1['EXPIRATION DATE']<ref]
+    track = df1[(df1['EXPIRATION DATE']<ref) & (df1['STATUS'].isin(['Vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
