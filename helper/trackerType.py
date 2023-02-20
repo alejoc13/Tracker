@@ -31,7 +31,7 @@ def TimeLapse(df,sp):
     init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
     df1 = pr.prepareDateTracker(df)
-    track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end)]
+    track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end) & (df1['STATUS'].isin(['Vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
