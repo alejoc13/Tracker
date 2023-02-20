@@ -1,5 +1,4 @@
 import helper.callOption as op
-import helper.LoadData as ld
 
 if __name__ == "__main__":
     menu = True
