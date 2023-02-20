@@ -6,6 +6,7 @@ def by_cfn(df,sp):
     name = input('Ingrese el nombre del archivo (Una unica columna titulada CFN): ')
     FileName = f'Documents\{name}.xlsx'
     ref = pd.read_excel(FileName,converters={'CFN':str})
+    ref = ref.dropna()
     lista = [cfn.strip() for cfn in ref['CFN']]
     track = df[df['CFN'].isin(lista)]
     sp = sp.drop(['SubOU'],axis = 1)
@@ -38,6 +39,7 @@ def by_registration(df,sp):
     name = input('Ingrese el nombre del archivo (Una unica columna titulada REGISTRATION): ')
     FileName = f'Documents\{name}.xlsx'
     ref = pd.read_excel(FileName,converters={'REGISTRATION':str})
+    ref= ref.dropna()
     lista = [cfn.strip() for cfn in ref['REGISTRATION']]
     track = df[df['REGISTRATION NUMBER'].isin(lista)]
     sp = sp.drop(['SubOU'],axis = 1)
@@ -85,6 +87,7 @@ def by_cfn_sufix(df,sp):
     name = input('Ingrese el nombre del archivo (Una unica columna titulada CFN): ')
     FileName = f'Documents\{name}.xlsx'
     ref = pd.read_excel(FileName,converters={'CFN':str})
+    ref = ref.dropna()
     lista = [cfn.strip() for cfn in ref['CFN']]
     for cfn in lista:
         temp = pr.sufix_search(df,cfn)
