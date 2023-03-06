@@ -30,8 +30,9 @@ def expirated(df,sp):
 def TimeLapse(df,sp):
     init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
-    df1 = pr.prepareDateTracker(df)
-    track = df1[(df1['EXPIRATION DATE']>=init) & (df1['EXPIRATION DATE']<=end) & (df1['STATUS'].isin(['Vigente','No disponible en BD']))]
+    df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
+    df['EXPIRATION DATE'] = df['EXPIRATION DATE'].fillna(datetime.datetime.today())
+    track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end)]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
