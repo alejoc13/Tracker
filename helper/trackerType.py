@@ -30,6 +30,8 @@ def expirated(df,sp):
 def TimeLapse(df,sp):
     init = input('Ingrese la fecha de inicio del tracker separado por guiones(DD-MM-AAA): ')
     end = input('Ingrese la fecha de finalización del tracker separado por guiones(DD-MM-AAA): ')
+    init = datetime.datetime(int(init.split('-')[2]),int(init.split('-')[1]),int(init.split('-')[0]))
+    end = datetime.datetime(int(end.split('-')[2]),int(end.split('-')[1]),int(end.split('-')[0]))
     df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
     df['EXPIRATION DATE'] = df['EXPIRATION DATE'].fillna(datetime.datetime.today())
     track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end)]
