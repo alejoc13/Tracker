@@ -55,7 +55,7 @@ def excel_by_Cluster(df,splan):
     path = f'trackResults\{file}.xlsx'
     nola = ['CR','MX','GT','SV','HN','CU','NI','PA']
     sola = ['AR','PE','BO','UY','PY']
-    cela = ['EC','CO','VE','RD','PR']
+    cela = ['EC','CO','VE','RD','PR','DO']
     df_nola = df[df['Country'].isin(nola)]
     df_sola = df[df['Country'].isin(sola)]
     df_cela = df[df['Country'].isin(cela)]
