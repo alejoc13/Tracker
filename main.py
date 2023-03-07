@@ -23,6 +23,7 @@ if __name__ == "__main__":
             15. Track no ID licenses
             16.External tracker for no ID
             17.Compare Expirations Dates (SP and DBs)
+            18. Review Approval Dates
             Presione entre sin ningun texto para salir
             ingrese el número de la opción a utilizar: ''')
             option =int(option)
@@ -67,6 +68,8 @@ if __name__ == "__main__":
             op.compareNoID(token)
         elif option == 17:
             op.DatesComparation(token)
+        elif option == 18:
+            op.approvalsReview(token)
             
         else:
             print('Opción incorrecta')

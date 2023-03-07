@@ -233,3 +233,9 @@ def SepareteRegistrations(df):
     df =df.drop_duplicates(subset='REGISTRATION NUMBER')
     df = sp_trim(df)
     return df
+
+def preparaApprovlas(df):
+    ref = datetime.timedelta(1)
+    df['APPROVAL DATE'] = pd.to_datetime(df['APPROVAL DATE'],errors='coerce')
+    df['APPROVAL DATE'] = df['APPROVAL DATE'].fillna(datetime.datetime.today()+ref)
+    return df

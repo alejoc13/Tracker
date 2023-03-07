@@ -105,6 +105,13 @@ def DatesComparation(token):
     df_plan = load.load_SPlan(token)
     tr.comparareDAtes(df,df_plan)
 
+def approvalsReview(token):
+    df = load.uploadData()
+    df_plan = load.load_SPlan(token)
+    df_plan = pr.sp_trim(df_plan)
+    tr.ApprovalsOnFuture(df,df_plan)
+
+
 
 
 

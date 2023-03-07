@@ -129,7 +129,6 @@ def comparingDates(row):
         return 'Inconsistente'
 
 def comparareDAtes(df,df_plan):
-    
     df1 = pd.DataFrame(columns=['REGISTRATION NUMBER','EXPIRATION DATE'])
     df = pr.SepareteRegistrations(df)
     df = pr.sp_trim(df)
@@ -142,6 +141,15 @@ def comparareDAtes(df,df_plan):
     df_merge['Consistencia'] = df_merge.apply(comparingDates,axis=1)
     df_merge = df_merge[df_merge['Consistencia'] == 'Inconsistente']
     df_merge.to_excel('trackResults\Consistencia en Fechas de vencimientos.xlsx',index=False)
+
+def ApprovalsOnFuture(df,sp):
+    df = pr.sp_trim(df)
+    df = pr.preparaApprovlas(df)
+    df1 = df[df['APPROVAL DATE']>datetime.datetime.today()]
+    ref = datetime.timedelta(1)+datetime.datetime.today()
+    df = df.replace({ref:'review'})
+    pr.excel_by_Cluster(df1,sp)
+    pass
 
 
     
