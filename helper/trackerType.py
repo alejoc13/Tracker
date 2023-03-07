@@ -148,7 +148,7 @@ def ApprovalsOnFuture(df,sp):
     df = pr.preparaApprovlas(df)
     df1 = df[df['APPROVAL DATE']>datetime.datetime.today()]
     ref = datetime.timedelta(1)+datetime.datetime.today()
-    df = df.replace({ref:'review'})
+    df = df.drop_duplicates(subset=['REGISTRATION NUMBER'])
     pr.excel_by_Cluster(df1,sp)
     pass
 
