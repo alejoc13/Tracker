@@ -35,7 +35,8 @@ def TimeLapse(df,sp):
     end = datetime.datetime(int(end.split('-')[2]),int(end.split('-')[1]),int(end.split('-')[0]))
     df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
     df['EXPIRATION DATE'] = df['EXPIRATION DATE'].fillna(datetime.datetime.today())
-    track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end)]
+    df = df.drop_duplicates(subset='REGISTRATION NUMBER')
+    track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end) & (df['STATUS'].isin(['vigente','Vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
