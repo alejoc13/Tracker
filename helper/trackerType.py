@@ -13,8 +13,9 @@ def by_cfn(df,sp):
     pr.create_excel(track,sp)
 
 def by_SubOU(df,df_plan):
-    ref = input('Ingrese las SubOU a trackear separadas por coma(,): ')
-    aux = ref.split(',')
+    ref = input('Ingrese las SubOU a trackear separadas por coma(;): ')
+    ref = ref.upper()
+    aux = ref.split(';')
     lista = [ou.strip() for ou in aux]
     track = df[df['OU'].isin(lista)]
     df_plan = df_plan.drop(['SubOU'],axis = 1)
