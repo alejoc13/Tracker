@@ -212,15 +212,13 @@ def uploadData():
     df = pd.concat([df,temporal],ignore_index=True)
 
     db_path = path + r'\República Dominicana\MDT República Dominicana DB.xlsm'
-    RepDo = pd.read_excel(db_path,sheet_name='ACTIVE CODES', usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+    RepDo = pd.read_excel(db_path,sheet_name='ACTIVE CODES', usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','SHELF LIFE','COMMENTS'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
     print(db_path)
 
     RepDo['Country'] = 'DO'
     RepDo['RISK CLASSIFICATION'] =  'No disponible en BD'
-    RepDo['SHELF LIFE'] =  'No disponible en BD'
     RepDo['Metodo Esterilización'] = 'No disponible en BD'
-
     temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE',
                                      'CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE','Metodo Esterilización'])
     for column in temporal.columns:
