@@ -179,15 +179,11 @@ def uploadData():
         temporal[column] = honduras[column]
     df = pd.concat([df,temporal],ignore_index=True)
 
-    db_path = path + r'\República Dominicana\MITG Base de datos Republica Dominicana.xlsx'
-    RepDo = pd.read_excel(db_path,usecols='A:M',converters = {'REGISTRO SANITARIO No.':str,'REFERENCIA':str})
+    db_path = path + r'\República Dominicana\MDT República Dominicana DB.xlsm'
+    RepDo = pd.read_excel(db_path,sheet_name='ACTIVE CODES', usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+                                date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
     print(db_path)
 
-    RepDo = RepDo.rename(columns={'REFERENCIA':'CFN','REGISTRO SANITARIO No.':'REGISTRATION NUMBER','TITULAR':'LICENSE HOLDER','FABRICADO POR':'MANUFACTURING SITE',
-                                'BU':'OU','VIGENCIA DEL REGISTRO SANITARIO (dd/mm/aaaa)':'EXPIRATION DATE','DESCRIPCIÓN DE REFERENCIA':'CFN DESCRIPTION',
-                                'DENOMINACION DEL PRODUCTO SEGÚN REGISTRO SANITARIO':'REGISTRATION NAME','FECHA DE EXPEDICIÓN':'APPROVAL DATE'})
-
-    RepDo['STATUS'] =  'No disponible en BD'
     RepDo['Country'] = 'DO'
     RepDo['RISK CLASSIFICATION'] =  'No disponible en BD'
 
