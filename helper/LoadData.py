@@ -1,7 +1,10 @@
 import pandas as pd
 import helper.procesing as pr
+import datetime
+import re
 import os
 import warnings
+import numpy as np
 import smartsheet
 warnings.filterwarnings('ignore')
 
@@ -30,16 +33,16 @@ def getReport(report_id,reportName,token):
     smart = smartsheet.Smartsheet(token)
     smart.Reports.get_report_as_excel(report_id,path,reportName)
     print(f'{reportName} was correctly Downloaded')
-
+    
 def uploadData():
     print('Cargando Bases de datos...')
     path = optionDBs()
     countries = {
         'BO': 'Bolivia',
         'CO': 'Colombia',
-        'CR': 'Costa Rica',
+        #'CR': 'Costa Rica', #No tiene shelf life
         'EC': 'Ecuador',
-        'SV': 'El Salvador',
+        # 'SV': 'El Salvador', #no tiene shlef life
         # 'GT': 'Guatemala',
         'MX': 'Mexico',
         'PE': 'Perú',
@@ -59,20 +62,37 @@ def uploadData():
         'VE': r'\Venezuela\MDT Venezuela DB.xlsm',
         'PY': r'\Paraguay\MDT Paraguay DB.xlsm',
     }
-    df = pd.DataFrame(columns= ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'])
+    df = pd.DataFrame(columns= ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE','Metodo Esterilización','Tipo de Registro'])
     for country in countries.keys():
         db_path = path+path_db[country]
         print(db_path)
-        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
         temporal['Country'] = country
+        temporal['Metodo Esterilización'] = 'No disponible en BD'
+        df = pd.concat([df,temporal],ignore_index=True)
+    
+    countries = {
+        'CR': 'Costa Rica',
+        'SV': 'El Salvador'
+    }
+    for country in countries.keys():
+        db_path = path+path_db[country]
+        print(db_path)
+        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+                                date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
+        temporal['Country'] = country
+        temporal['SHELF LIFE'] = 'No disponible en BD'
+        temporal['Metodo Esterilización'] = 'No disponible en BD'
         df = pd.concat([df,temporal],ignore_index=True)
     
     db_path = path + r'\Uruguay\MDT Uruguay DB.xlsm'
-    temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','OU','MANUFACTURING SITE','LICENSE HOLDER'],converters={'CFN':str,'REGISTRATION NUMBER':str},
+    temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','OU','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS'],converters={'CFN':str,'REGISTRATION NUMBER':str},
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
     temporal['Country'] = 'UY'
     temporal['CFN DESCRIPTION'] = 'No disponible en BD'
+    temporal['SHELF LIFE'] = 'No disponible en BD'
+    temporal['Metodo Esterilización'] = 'No disponible en BD'
     df = pd.concat([df,temporal],ignore_index=True)
     
     countries = {
@@ -87,6 +107,8 @@ def uploadData():
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'])
         temporal['Country'] = country
         temporal['RISK CLASSIFICATION'] = 'No disponible en BD'
+        temporal['SHELF LIFE'] = 'No disponible en BD'
+        temporal['Metodo Esterilización'] = 'No disponible en BD'
         df = pd.concat([df,temporal],ignore_index=True)
     
     
@@ -100,19 +122,19 @@ def uploadData():
         'MDT': r'\Brasil\Piloto Oficial_MDT_2020.06.08.xlsm'
         }
 
-    df_brasil = pd.DataFrame(columns= ['Country','Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'])
+    df_brasil = pd.DataFrame(columns= ['Country','Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro','Comentários','Shelf-Life','Método de Esterilização','Tipo de Registro','Certificação INMETRO','Parte/Acessório/Peça'])
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
         print(db_path)
         temporal =pd.read_excel(db_path,sheet_name = 'Banco de Dados',
-                                usecols= ['Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro'],converters={'Código':str,'Registro ANVISA':str},
+                                usecols= ['Registro ANVISA','Nome do Registro','Status do Registro','Classe de Risco ','Data de Aprovação Inicial','Data de Vencimento do Registro ','Código','Descrição do Código','BU','Fabricante Físico (Real)','Detentor do Registro','Comentários','Shelf-Life','Método de Esterilização','Tipo de Registro','Certificação INMETRO','Parte/Acessório/Peça'],converters={'Código':str,'Registro ANVISA':str},
                                 date_parser = ['Data de Vencimento do Registro ','Data de Aprovação Inicial'])
         temporal['Country'] = 'BR'
         df_brasil = pd.concat([df_brasil,temporal],ignore_index=True)
     
     df_brasil = df_brasil.rename(columns={'Código':'CFN','BU':'OU','Registro ANVISA':'REGISTRATION NUMBER','Data de Vencimento do Registro ':'EXPIRATION DATE',
                                 'Nome do Registro':'REGISTRATION NAME', 'Descrição do Código':'CFN DESCRIPTION','Status do Registro':'STATUS','Fabricante Físico (Real)':'MANUFACTURING SITE',
-                                'Detentor do Registro':'LICENSE HOLDER','Data de Aprovação Inicial':'APPROVAL DATE','Classe de Risco ':'RISK CLASSIFICATION'})
+                                'Detentor do Registro':'LICENSE HOLDER','Data de Aprovação Inicial':'APPROVAL DATE','Classe de Risco ':'RISK CLASSIFICATION','Comentários':'COMMENTS','Shelf-Life':'SHELF LIFE','Método de Esterilização':'Metodo Esterilización'})
     df_brasil = df_brasil[~df_brasil['STATUS'].isin(['Cancelado','OBSOLETO','obsoleto','Obsoleto','\\','Vencido'])]
     
     df = pd.concat([df,df_brasil],ignore_index=True)
@@ -124,11 +146,11 @@ def uploadData():
         'COV': r'\Argentina\COV Argentina DB.xlsm',
         'MDT': r'\Argentina\MDT Argentina DB.xlsm'
         }
-    df_AR = pd.DataFrame(columns = ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'] )
+    df_AR = pd.DataFrame(columns = ['Country','REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER','COMMENTS','SHELF LIFE'] )
     for bc in brand_code.keys():
         db_path = path+path_db[bc]
         print(db_path)
-        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER'],
+        temporal =pd.read_excel(db_path,sheet_name = 'ACTIVE CODES',usecols= ['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','MANUFACTURING NAME','MANUFACTURING ADDRESS','LICENSE HOLDER','COMMENTS','SHELF LIFE'],
                                 date_parser = ['EXPIRATION DATE','APPROVAL DATE'],converters = {'REGISTRTION NUMBER':str,'CFN':str,} )
         temporal['Country'] = 'AR'
         df_AR = pd.concat([df_AR,temporal],ignore_index=True)
@@ -136,8 +158,10 @@ def uploadData():
     df_AR['CUT ADDRESS'] = df_AR.apply(pr.cut_values,axis = 1)
     df_AR['CUT NAME'] = df_AR.apply(pr.cut_values,axis = 1,column = 'MANUFACTURING NAME')
     df_AR['MANUFACTURING SITE'] = df_AR.apply(pr.paste_problem,axis=1)
+    df_AR['Metodo Esterilización'] = 'No disponible en BD'
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE',
+                                     'CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE','Metodo Esterilización'])
     for column in temporal.columns:
         temporal[column] = df_AR[column]
     df = pd.concat([df,temporal],ignore_index=True)
@@ -155,8 +179,11 @@ def uploadData():
     honduras['STATUS'] = 'No disponible en BD'
     honduras['LICENSE HOLDER'] = 'No disponible en BD'
     honduras['RISK CLASSIFICATION'] = 'No disponible en BD'
+    honduras['SHELF LIFE'] = 'No disponible en BD'
+    honduras['Metodo Esterilización'] = 'No disponible en BD'
     
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE',
+                                     'CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','SHELF LIFE','Metodo Esterilización'])
     for column in temporal.columns:
         temporal[column] = honduras[column]
     df = pd.concat([df,temporal],ignore_index=True)
@@ -166,15 +193,20 @@ def uploadData():
     honduras = pd.read_excel(db_path,sheet_name='MITG Local',converters = {'Nº LICENSE':str,'CODES':str})
     honduras = honduras.rename(columns={'CODES':'CFN','LÍNEA':'OU','Nº LICENSE':'REGISTRATION NUMBER','DESCRPTION OF THE REFERENCE CODE':'CFN DESCRIPTION',
                                         'ADDRESS':'MANUFACTURING SITE','DESCRIPCION OF APPROVAL':'REGISTRATION NAME','EXPIRATION \nDAY':'EXPIRATION DATE',
-                                        'APPROVAL \nDATE':'APPROVAL DATE'}
+                                        'APPROVAL \nDATE':'APPROVAL DATE','COMENTARIOS':'COMMENTS'}
                             )
     honduras['Country'] = 'HN'
 
     honduras['STATUS'] = 'No disponible en BD'
     honduras['LICENSE HOLDER'] = 'No disponible en BD'
     honduras['RISK CLASSIFICATION'] = 'No disponible en BD'
+    honduras['COMMENTS'] = 'No disponible en BD'
+    honduras['SHELF LIFE'] = 'No disponible en BD'
+    honduras['Metodo Esterilización'] = 'No disponible en BD'
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE',
+                                     'CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE',
+                                     'Metodo Esterilización'])
     for column in temporal.columns:
         temporal[column] = honduras[column]
     df = pd.concat([df,temporal],ignore_index=True)
@@ -186,8 +218,11 @@ def uploadData():
 
     RepDo['Country'] = 'DO'
     RepDo['RISK CLASSIFICATION'] =  'No disponible en BD'
+    RepDo['SHELF LIFE'] =  'No disponible en BD'
+    RepDo['Metodo Esterilización'] = 'No disponible en BD'
 
-    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE','CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER'])
+    temporal = pd.DataFrame(columns=['REGISTRATION NUMBER','REGISTRATION NAME','STATUS','RISK CLASSIFICATION','APPROVAL DATE','EXPIRATION DATE',
+                                     'CFN','CFN DESCRIPTION','OU','Country','MANUFACTURING SITE','LICENSE HOLDER','COMMENTS','SHELF LIFE','Metodo Esterilización'])
     for column in temporal.columns:
         temporal[column] = RepDo[column]
     df = pd.concat([df,temporal],ignore_index=True)

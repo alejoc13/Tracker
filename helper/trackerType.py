@@ -9,7 +9,6 @@ def by_cfn(df,sp):
     ref = ref.dropna()
     lista = [cfn.strip() for cfn in ref['CFN']]
     track = df[df['CFN'].isin(lista)]
-    sp = sp.drop(['SubOU'],axis = 1)
     pr.create_excel(track,sp)
 
 def by_SubOU(df,df_plan):
@@ -18,7 +17,6 @@ def by_SubOU(df,df_plan):
     aux = ref.split(';')
     lista = [ou.strip() for ou in aux]
     track = df[df['OU'].isin(lista)]
-    df_plan = df_plan.drop(['SubOU'],axis = 1)
     pr.create_excel(track,df_plan)
 
 def expirated(df,sp):
@@ -48,7 +46,6 @@ def by_registration(df,sp):
     ref= ref.dropna()
     lista = [cfn.strip() for cfn in ref['REGISTRATION']]
     track = df[df['REGISTRATION NUMBER'].isin(lista)]
-    sp = sp.drop(['SubOU'],axis = 1)
     pr.create_excel(track,sp)
 
 def Submitted_Control(sp):

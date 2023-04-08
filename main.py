@@ -3,6 +3,7 @@ import helper.callOption as op
 if __name__ == "__main__":
     menu = True
     token = input('Ingrese el Token de seguridad para acceder a los datos de SmartSheet: ')
+    menu = True
     while menu != False:
         try:
             option = input('''
@@ -60,11 +61,3 @@ if __name__ == "__main__":
         else:
             print('Opción incorrecta')
             print('#-------------------------------')
-    
-    
-    
-    
-
-        
-        
-        
