@@ -93,10 +93,13 @@ def prepareDateTracker(df):
     return df1
 
 def reference(row,col='Expected Approval Date'):
-    a = row[col]
-    delta = datetime.timedelta(90)
-    ref = a + delta
-    return ref
+    try:
+        a = row[col]
+        delta = datetime.timedelta(90)
+        ref = a + delta
+        return ref
+    except:
+        row[col]
 
 def excel_byTG(df):
     print('Este documento esta seccionado por Therapy Group')
