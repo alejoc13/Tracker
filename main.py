@@ -1,8 +1,11 @@
 import helper.callOption as op
+import configparser
+config = configparser.ConfigParser()
+config.read('tracker.config')
 
 if __name__ == "__main__":
     menu = True
-    token = input('Ingrese el Token de seguridad para acceder a los datos de SmartSheet: ')
+    TOKEN = config.get('DEFAULT','TOKEN')
     while menu != False:
         try:
             option = input('''
@@ -35,41 +38,41 @@ if __name__ == "__main__":
                 print('Opción invalida')
                 print('#-------------------------------')
         if option == 1:
-            op.option_cfn(token)
+            op.option_cfn(TOKEN)
         elif option == 2:
-            op.option_SubOU(token)
+            op.option_SubOU(TOKEN)
         elif option == 3:
-            op.option_reg(token)
+            op.option_reg(TOKEN)
         elif option == 4:
-            op.option_Planning(token)
+            op.option_Planning(TOKEN)
         elif option == 5:
-            op.option_submitted(token)
+            op.option_submitted(TOKEN)
         elif option == 6:
-            op.option_voucher(token)
+            op.option_voucher(TOKEN)
         elif option == 7:
-            op.option_Timelapse(token)
+            op.option_Timelapse(TOKEN)
         elif option == 8:
-            op.option_expired(token)         
+            op.option_expired(TOKEN)         
         elif option == 9:
-            op.cancel_criticalOP(token)           
+            op.cancel_criticalOP(TOKEN)           
         elif option == 10:
-            op.CFN_WithdrawalOP(token)
+            op.CFN_WithdrawalOP(TOKEN)
         elif option == 11:
-            op.gaps_option(token)
+            op.gaps_option(TOKEN)
         elif option == 12:
-            op.sufix_option(token)
+            op.sufix_option(TOKEN)
         elif option == 13:
-            op.track_manual(token)
+            op.track_manual(TOKEN)
         elif option == 14:
-            op.MissedExpectedDAte(token)
+            op.MissedExpectedDAte(TOKEN)
         elif option == 15:
-            op.planingRenewals(token)
+            op.planingRenewals(TOKEN)
         elif option == 16:
-            op.compareNoID(token)
+            op.compareNoID(TOKEN)
         elif option == 17:
-            op.DatesComparation(token)
+            op.DatesComparation(TOKEN)
         elif option == 18:
-            op.approvalsReview(token)
+            op.approvalsReview(TOKEN)
             
         else:
             print('Opción incorrecta')

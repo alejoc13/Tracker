@@ -3,6 +3,9 @@ import helper.procesing as pr
 import os
 import warnings
 import smartsheet
+import configparser
+config = configparser.ConfigParser()
+config.read('tracker.config')
 warnings.filterwarnings('ignore')
 
 def optionDBs():
@@ -202,7 +205,7 @@ def uploadData():
     return df
 
 def load_SPlan(token):
-    report_id ='8721565023004548'
+    report_id = config.get('SHEET_IDS','S_PLAN')
     reportName = 'Submission Plan - Full Report.xlsx'
     getReport(report_id,reportName,token)
     print('Cargando Submission Plan...')
@@ -213,7 +216,7 @@ def load_SPlan(token):
     return df_plan
 
 def load_vouchers(token):
-    report_id = 5282231775192964
+    report_id = config.get('VOUCHERS','S_PLAN')
     reportName = 'Vouchers Report.xlsx'
     print('Cargando los datos de Vouchers...')
     getReport(report_id,reportName,token)
@@ -223,7 +226,7 @@ def load_vouchers(token):
     return df
 
 def load_criticals(token):
-    report_id = 6660752464471940
+    report_id = config.get('CRITICALS','S_PLAN')
     reportName = 'Expected Critical communications.xlsx'
     getReport(report_id,reportName,token)
     print('Cargando los datos de Expected Critical communications...')
