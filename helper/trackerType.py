@@ -13,7 +13,7 @@ def by_cfn(df,sp):
     pr.create_excel(track,sp)
 
 def by_SubOU(df,df_plan):
-    ref = input('Ingrese las SubOU a trackear separadas por coma(;): ')
+    ref = input('Ingrese las SubOU a trackear separadas por punto y coma(;): ')
     ref = ref.upper()
     aux = ref.split(';')
     lista = [ou.strip() for ou in aux]
@@ -35,8 +35,7 @@ def TimeLapse(df,sp):
     init = datetime.datetime(int(init.split('-')[2]),int(init.split('-')[1]),int(init.split('-')[0]))
     end = datetime.datetime(int(end.split('-')[2]),int(end.split('-')[1]),int(end.split('-')[0]))
     df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
-    df['EXPIRATION DATE'] = df['EXPIRATION DATE'].fillna(datetime.datetime.today())
-    df = df.drop_duplicates(subset='REGISTRATION NUMBER')
+    print(df['Country'].unique())
     track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end) & (df['STATUS'].isin(['vigente','Vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)

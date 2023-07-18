@@ -53,7 +53,7 @@ def excel_by_Cluster(df,splan):
     print('Este documento esta seccionado por Cluster')
     file = input('Nombre del archivo a guardar: ')
     path = f'trackResults\{file}.xlsx'
-    nola = ['CR','MX','GT','SV','HN','CU','NI','PA']
+    nola = ['CR','MX','GT','SV','HN','CU','NI','PA','DO']
     sola = ['AR','PE','BO','UY','PY']
     cela = ['EC','CO','VE','RD','PR','DO']
     df_nola = df[df['Country'].isin(nola)]

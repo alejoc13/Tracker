@@ -83,12 +83,12 @@ Descripción de cada funcionalidad
     le solicite el nombre del archivo, recuerde que no debe darselo con la extensión(.xlsx) puesto que el algoritmo se la asignará internamente. Tenga en cuenta
     que el archivo puede tener cualqueir nombre siempre que se repeten las condicioens anteriormente expresadas
  
- 2. Tacker por SubOU: Este tracker le pedirá que ingrese de forma manual y separado por comas (,) el lsitado de subOUs qeu necesita trackear, tenga en cuenta que al 
+ 2. Tacker por SubOU: Este tracker le pedirá que ingrese de forma manual y separado por punto y comas (;) el listado de subOUs qeu necesita trackear, tenga en cuenta que al 
     ser un ingreso manual parte del exito del tracker es que usted ingrese adecuadamente el texto. Además tenga en cuenta que de necesitar trackear SubOU antiguas, deberá
-    ingresarlas de forma independiente tambien separadas por coma (,) cuando se lo solciite la herramienta.
+    ingresarlas de forma independiente tambien separadas por punto y comas (;) cuando se lo solciite la herramienta.
 
  3. Tracker por Número de registro: Este tracker requiere qeu se cargue a la carpeta 'Documents' un archivo de extensión .xlsx el cual debe contener una unica columna
-    la cual debe tener por header(titulo de columna) REGISTRATION respetando las mayusculas, posterioremnte debe venir el listado de CFNs a trackear. Cuando la herramienta
+    la cual debe tener por header(titulo de columna) REGISTRATION respetando las mayusculas, posterioremnte debe venir el listado de números de registro a trackear. Cuando la herramienta
     le solicite el nombre del archivo, recuerde que no debe darselo con la extensión(.xlsx) puesto que el algoritmo se la asignará internamente. Tenga en cuenta
     que el archivo puede tener cualqueir nombre siempre que se repeten las condicioens anteriormente expresadas.
  
@@ -105,10 +105,10 @@ Descripción de cada funcionalidad
  
  7. Tracker por lapsos de tiempo(se da una fecha de inicio y de finalización): Esta funcionalidad le solicitará que ingrese dos fechas una de inicio y otra de finalizacion, estas dos
     estas fechas definirám el rango de busqeuda de fechas de vencimiento que se tendrá en ceunta para el reporte. de vencimientos, siendo esta la opción mas adecuada para realziar
-    planeación de renovaciones.
+    planeación de renovaciones.(Se omite Honduras y Rep. Dominicanda)
 
  8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda): Esta función busca los registros en lso cuales se superó la fecha de expiración presente en la base de datos y
-    vrea un reporte con ellos. Es la mejor herramietna para la limpieza de registros vencidos en las bases de datos.
+    vera un reporte con ellos. Es la mejor herramietna para la limpieza de registros vencidos en las bases de datos.
 
  9. Missed Critical communications(Cancell Renewal): Opción que permite comparar el reporte 'Expected Critical Communications Report' con las bases de datos, de manera que nos permite
     determinar todos los procesos qeu degberían reportarse como No se renovará pero no se encuentran de esa manera.
@@ -145,7 +145,9 @@ siendo las opciones por cluster y por Therapy group. tenga esto en cuenta a la h
 
 #--------------------------------------------------------------------------------------------
 IMPORTANTE:
-1. Usted no deberá realizar modificaciones en el codigo en ningun moemnto, la herramienta está diseñada para qeu toda la experiencia de uso sea desde la consola y no sea necesario modificar nada en los distintos archivos .py
+1. Usted no deberá realizar modificaciones en el codigo en ningun momento, la herramienta está diseñada para qeu toda la experiencia de uso sea desde la consola y no sea necesario modificar nada en los distintos archivos .py
 que comforman el proyecto.
 
 2. De presentarse fallas por favor comuniquese con Alejandro Castrillon (email: johanalejandro.castrillonrodriguez@medtronic.com) y especifique el fallo en el e-mail. La falla será atendida tan pronto como sea posible.
+
+3. Las funcionalidades asociadas a la busuqeda de fechs, ya sea en un lapso de tiempo determinado o la busqueda de elementos vencidos etá supeditada al correcto ingreso de la información en las bases de datos, cualquier error en el formato de fecha en excel causará que no sea tenida en cuenta la línea de excel donde se encuentra el error a la hora de aher la busqueda. Además bases de datos no estandarizadas como Honduras son suceptibles a errores de escritura presentes en la misma.
