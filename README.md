@@ -104,10 +104,10 @@ Descripción de cada funcionalidad
     Voucher.
  
  7. Tracker por lapsos de tiempo(se da una fecha de inicio y de finalización): Esta funcionalidad le solicitará que ingrese dos fechas una de inicio y otra de finalizacion, estas dos
-    estas fechas definirám el rango de busqeuda de fechas de vencimiento que se tendrá en ceunta para el reporte. de vencimientos, siendo esta la opción mas adecuada para realziar
+    estas fechas definirán el rango de busqueda de fechas de vencimiento que se tendrá en ceunta para el reporte de vencimientos, siendo esta la opción mas adecuada para realziar
     planeación de renovaciones.(Se omite Honduras y Rep. Dominicanda)
 
- 8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda): Esta función busca los registros en lso cuales se superó la fecha de expiración presente en la base de datos y
+ 8. Tracker de elementos vencidos(Se omite Honduras y Rep. Dominicanda): Esta función busca los registros en los cuales se superó la fecha de expiración presente en la base de datos y
     vera un reporte con ellos. Es la mejor herramietna para la limpieza de registros vencidos en las bases de datos.
 
  9. Missed Critical communications(Cancell Renewal): Opción que permite comparar el reporte 'Expected Critical Communications Report' con las bases de datos, de manera que nos permite
