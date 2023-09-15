@@ -203,8 +203,9 @@ def uploadData():
     df["STATUS"] = df["STATUS"].str.lower()
     df["STATUS"] = df["STATUS"].str.strip()
     df.loc[df["STATUS"].isin(['vigente no se renovará','vigente, no se renovará']),"STATUS"] = 'vigente no se renovará'
+    df["Therapy Group"] = df.apply(pr.therapyGroup,axis=1)
     print('Bases de datos Cargadas')
-    print(df["STATUS"].unique())
+   
 
     return df
 

@@ -242,3 +242,13 @@ def preparaApprovlas(df):
     df['APPROVAL DATE'] = pd.to_datetime(df['APPROVAL DATE'],errors='coerce')
     df['APPROVAL DATE'] = df['APPROVAL DATE'].fillna(datetime.datetime.today()+ref)
     return df
+
+def therapyGroup(row):
+    if row["OU"] in ["ENT", "PAIN", "INT", "DBS", "PH", "DIAB", "GIH", "RCS"]:
+        return "AT"
+    elif row["OU"] in ["PVH", "SHA", "CORO", "RDN", "CAS", "CRM", "MCS", "CV", "NV"]:
+        return "CathLab"
+    elif row["OU"] in ["SR", "SI(A&I)", "SI(LA)", "SI(EMID)", "SI(OS&SP)", "SI(SY,SO&MS)", "SI(HW,VS&ES)", "SI(ST)", "PM", "RI", "MPSS", "CSF", "NAV", "NIM", "KH", "MSB", "TS", "CS"]:
+        return "OR&ICU"
+    else:
+        return "No Mapped"  # Otra opción en caso de que no coincida con ninguno de los casos anteriores
