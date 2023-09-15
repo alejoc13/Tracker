@@ -111,7 +111,7 @@ Descripción de cada funcionalidad
     vera un reporte con ellos. Es la mejor herramietna para la limpieza de registros vencidos en las bases de datos.
 
  9. Missed Critical communications(Cancell Renewal): Opción que permite comparar el reporte 'Expected Critical Communications Report' con las bases de datos, de manera que nos permite
-    determinar todos los procesos qeu degberían reportarse como No se renovará pero no se encuentran de esa manera.
+    determinar todos los procesos qeu deberían reportarse como No se renovará pero no se encuentran de esa manera.
  
  10. Missed Critical communications (approved CFN Withdrawal): en este caso se reportan todas las potenciales critical communications que provienen del proceso de retirar CFNs de licencias
      (CFN Withdrawal), para hcer mas facil la lectura de los acmbiso que devieron realiarce se presenta una hoja enq eu se cruza con el submmision plan de manera que si el RAS reportó los CFNs

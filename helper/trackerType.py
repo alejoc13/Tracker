@@ -25,7 +25,7 @@ def expirated(df,sp):
     ref = datetime.datetime.today()
     df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
     df['EXPIRATION DATE'] = df['EXPIRATION DATE'].fillna(datetime.datetime.today())
-    track = df[(df['EXPIRATION DATE']<ref) & (df['STATUS'].isin(['Vigente','No disponible en BD']))]
+    track = df[(df['EXPIRATION DATE']<ref) & (df['STATUS'].isin(['vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
@@ -36,7 +36,7 @@ def TimeLapse(df,sp):
     end = datetime.datetime(int(end.split('-')[2]),int(end.split('-')[1]),int(end.split('-')[0]))
     df['EXPIRATION DATE'] = pd.to_datetime(df['EXPIRATION DATE'],errors='coerce')
     print(df['Country'].unique())
-    track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end) & (df['STATUS'].isin(['vigente','Vigente','No disponible en BD']))]
+    track = df[(df['EXPIRATION DATE']>=init) & (df['EXPIRATION DATE']<=end) & (df['STATUS'].isin(['vigente','No disponible en BD']))]
     sp = sp.drop(['SubOU'],axis = 1)
     pr.excel_by_Cluster(track,sp)
 
@@ -77,7 +77,7 @@ def cancel_criticals(criticals,df):
     criticals = criticals[(criticals['Status'] == 'CANCELLED') & (criticals['Submission Type'] == 'Renewal')]
     listado = [var.strip() for var in criticals['REGISTRATION NUMBER']]
     listado = set(listado)
-    df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'Vigente, no se renovará')]
+    df1 = df[(df['REGISTRATION NUMBER'].isin(listado)) & (df['STATUS']!= 'vigente no se renovará')]
     pr.create_excel(df1,criticals)
 
 def approved_criticals(criticals,df):

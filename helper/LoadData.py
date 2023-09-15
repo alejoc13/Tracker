@@ -200,7 +200,11 @@ def uploadData():
     df = df.sort_values(by = ['Country'])
 
     df = df.dropna(subset='REGISTRATION NUMBER')
+    df["STATUS"] = df["STATUS"].str.lower()
+    df["STATUS"] = df["STATUS"].str.strip()
+    df.loc[df["STATUS"].isin(['vigente no se renovará','vigente, no se renovará']),"STATUS"] = 'vigente no se renovará'
     print('Bases de datos Cargadas')
+    print(df["STATUS"].unique())
 
     return df
 
